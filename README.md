@@ -21,3 +21,8 @@ You must have CMake and a Pcap library installed. The library used in this proje
 Name | Description | Workaround | Status
 --- | --- | --- | ---
 Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>vs</code>, press Configure, then Generate | Unsolved
+
+
+## Branches
+<code>master</code> - most recent updates
+<code>build</code - stable build
