@@ -1,0 +1,15 @@
+language: cpp
+
+compiler: gcc
+
+sudo: require
+
+solution: Trace.sln
+
+install: sudo apt-get install libpcap-dev
+
+before_script:
+  cd vs
+  cmake ../src/
+  
+script: echo test
