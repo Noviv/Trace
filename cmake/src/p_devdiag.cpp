@@ -46,8 +46,9 @@ void print_device(pcap_if_t *d, unsigned int i) {
 			break;
 		case AF_INET6:
 			printf("\t\tAddress Family Name: AF_INET6\n");
+			char ip6str[128];
 			if (a->addr) {
-				printf("\t\tAddress: %s\n", ip6_string(a->addr));
+				printf("\t\tAddress: %s\n", ip6_string(a->addr, ip6str, sizeof(ip6str)));
 			}
 			break;
 		}
@@ -65,9 +66,8 @@ char *ip4_string(u_long in) {
 	return output[which];
 }
 
-char *ip6_string(struct sockaddr *sockaddr) {
+char *ip6_string(struct sockaddr *sockaddr, char *address, int addrlen) {
 	socklen_t sockaddrlen;
-	char address[128];
 
 #ifdef WIN32
 	sockaddrlen = sizeof(struct sockaddr_in6);
@@ -75,7 +75,7 @@ char *ip6_string(struct sockaddr *sockaddr) {
 	sockaddrlen = sizeof(struct sockaddr_storage);
 #endif
 
-	if (getnameinfo(sockaddr, sockaddrlen, address, 128, NULL, 0, NI_NUMERICHOST) != 0) {
+	if (getnameinfo(sockaddr, sockaddrlen, address, sizeof(address), NULL, 0, NI_NUMERICHOST) != 0) {
 		return NULL;
 	}
 	return address;
