@@ -24,5 +24,5 @@ Escape Character | Error about "\P" escape character shows up in CMake console |
 
 
 ## Branches
-<code>master</code> - most recent updates<br>
-<code>build</code - stable build
+<code>master</code> - most recent updates</code><br>
+<code>build</code - stable build</code><br>
