@@ -75,8 +75,8 @@ char *ip6_string(struct sockaddr *sockaddr, char *address, int addrlen) {
 	sockaddrlen = sizeof(struct sockaddr_storage);
 #endif
 
-	if (getnameinfo(sockaddr, sockaddrlen, address, sizeof(address), NULL, 0, NI_NUMERICHOST) != 0) {
-		return NULL;
+	if (getnameinfo(sockaddr, sockaddrlen, address, addrlen, NULL, 0, NI_NUMERICHOST) != 0) {
+		address = NULL;
 	}
 	return address;
 }
