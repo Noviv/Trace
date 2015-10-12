@@ -6,6 +6,10 @@ sudo: require
 
 solution: Trace.sln
 
+branches:
+  only:
+    - build
+
 install: sudo apt-get install libpcap-dev
 
 before_script:
