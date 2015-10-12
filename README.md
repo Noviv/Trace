@@ -2,8 +2,9 @@
 A tool that allows a user to select and trace a single packet.
 
 ## Use
+You must have CMake and a Pcap library installed. The library used in this project is [WinPcap](https://www.winpcap.org/).
 <ol>
-  <li>Install CMake and a PCAP library ([WinPcap](https://www.winpcap.org/) works)</li>
+  <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
   <li>Set source directory to <code>.../cmake</code> and the build directory to <code>.../vs</code> (or whatever you want it to be)</li>
   <li>Press "Generate"</li>
