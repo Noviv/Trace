@@ -21,6 +21,7 @@ You must have [CMake](https://cmake.org/) and a Pcap library installed. The libr
 Name | Description | Workaround | Status
 --- | --- | --- | ---
 Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>build</code>, press Configure, then Generate | Unsolved
+Linux | Linux CMake generation unsupported | Don't use Linux :( | Making a new CMake file
 
 
 ## Branches
