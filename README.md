@@ -2,7 +2,7 @@
 A tool that allows a user to select and trace a single packet.
 
 ## Use
-You must have [CMake](https://cmake.org/) and a Pcap library installed. The library used in this project is [WinPcap](https://www.winpcap.org/).
+You must have [CMake](https://cmake.org/) and a Pcap library installed. The library used in this project is [WinPcap](https://www.winpcap.org/). Linux is not yet supported, but <code>sudo apt-get install libpcap-dev</code> can be used to install Libpcap on a Linux machine.
 <ol>
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
@@ -28,4 +28,5 @@ Escape Character | Error about "\P" escape character shows up in CMake console |
 <code>build</code> - stable build<br>
 
 ## To do
-[&nbsp;&nbsp;] Add instructions for other CMake generators (i.e. Borland, Ninja, CodeBlocks)
+[&nbsp;&nbsp;] Add instructions for other CMake generators (i.e. Borland, Ninja, CodeBlocks)<br>
+[&nbsp;&nbsp;] Add CMake support for Linux and <code>Libpcap</code> header files
