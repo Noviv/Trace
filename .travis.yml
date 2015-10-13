@@ -13,7 +13,7 @@ branches:
 install: sudo apt-get install libpcap-dev
 
 before_script:
-  cd build
-  cmake ../src/
-  
-script: echo test
+  - cd build
+  - cmake ../src/
+
+after_success: printenv
