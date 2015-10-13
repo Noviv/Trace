@@ -12,7 +12,7 @@
 #define IP4_STRING_BUFFERS 12
 #define PASSIVE_DIAG
 
-void devdiag();
+void p_devdiag();
 void savediag(char *filepath);
 void print_device(pcap_if_t *d, unsigned int i);
 char *ip4_string(u_long in);

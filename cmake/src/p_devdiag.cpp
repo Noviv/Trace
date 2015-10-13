@@ -1,6 +1,6 @@
 #include "include/p_devdiag.h"
 
-void devdiag() {
+void p_devdiag() {
 	printf("Running device diagnostics...\n");
 
 	pcap_if_t *alldevs;
