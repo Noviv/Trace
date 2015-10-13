@@ -33,10 +33,14 @@ void a_devdiag() {
 		exit(1);
 	}
 
+	if (pcap_datalink(adhandle) != DLT_EN10MB) {
+		printf("Not using an ethernet device: output may not always be correct.\n");
+	}
+
 
 	pcap_freealldevs(alldevs);
 	printf("Starting active diagnostics...\n");
-	
+
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
@@ -64,7 +68,7 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	printf("%d.%d.%d.%d.%d -> %d.%d.%d.%d.%d           \n",
+	printf("%d.%d.%d.%d.%d -> %d.%d.%d.%d.%d           \r",
 		ih->saddr.byte1,
 		ih->saddr.byte2,
 		ih->saddr.byte3,
@@ -75,11 +79,4 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 		ih->daddr.byte3,
 		ih->daddr.byte4,
 		dport);
-
-	//struct sockaddr *sa = new sockaddr;
-	//char host[1024];
-	//char service[20];
-	//getnameinfo(sa, sizeof(sa), host, sizeof(host), service, sizeof(service), 0);
-	//printf("host: %s", host);
-	//printf("service: %s\n", service);
 }
