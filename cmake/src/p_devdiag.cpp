@@ -7,7 +7,7 @@ void p_devdiag() {
 	char errbuf[PCAP_ERRBUF_SIZE];
 
 	if (pcap_findalldevs(&alldevs, errbuf) == -1) {
-		fprintf(stderr, "Error in pcap_findalldevs: %s\n", errbuf);
+		printf("Error in pcap_findalldevs: %s\n", errbuf);
 		exit(1);
 	}
 

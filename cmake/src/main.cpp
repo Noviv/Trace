@@ -1,7 +1,7 @@
-#include "include/p_devdiag.h"
+#include "include/a_devdiag.h"
 
 int main() {
-	p_devdiag();
+	a_devdiag();
 	getchar();
 	return 0;
 }
