@@ -1,14 +1,20 @@
 cmake_minimum_required(VERSION 2.8)
 project(Trace)
 
-if (EXISTS $ENV{PCAP_ROOT_DIR})
-    set(PCAP_INCLUDE_DIR $ENV{PCAP_ROOT_DIR}\\Include)
-    set(PCAP_LIBRARY $ENV{PCAP_ROOT_DIR}\\Lib)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    message("Linux CMake generation currently unsupported! (skipping CMake build for Linux)")
+    #FATAL_ERROR
 else()
-    message(FATAL_ERROR "Could not find PCAP!"
-    "\nInstall it and make a new environment variable PCAP_ROOT_DIR"
-    " referencing that directory.")
+    if (EXISTS $ENV{PCAP_ROOT_DIR})
+        set(PCAP_INCLUDE_DIR $ENV{PCAP_ROOT_DIR}\\Include)
+        set(PCAP_LIBRARY $ENV{PCAP_ROOT_DIR}\\Lib)
+    else()
+        message(FATAL_ERROR "Could not find PCAP!"
+        "\nInstall it and make a new environment variable PCAP_ROOT_DIR"
+        " referencing that directory.")
+    endif()
 endif()
+
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(PCAP DEFAULT_MSG
