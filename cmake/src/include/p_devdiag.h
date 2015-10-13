@@ -10,6 +10,7 @@
 #endif
 
 #define IP4_STRING_BUFFERS 12
+#define PASSIVE_DIAG
 
 void devdiag();
 void savediag(char *filepath);
