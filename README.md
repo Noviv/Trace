@@ -1,4 +1,4 @@
-# Trace
+# Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace)
 A tool that allows a user to select and trace a single packet.
 
 ## Use
