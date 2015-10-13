@@ -14,5 +14,8 @@ install: sudo apt-get install libpcap-dev
 
 before_script:
   - cd build
-  - printenv
+  - find / -type d -name "libpcap"
   - cmake ../cmake/
+
+notifications:
+  email: false
