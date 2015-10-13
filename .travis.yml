@@ -15,7 +15,8 @@ install: sudo apt-get install libpcap-dev
 before_script:
   - cd build
   - find -iname "pcap.h"
-  - cmake ../cmake/
+
+script: cmake ../cmake/
 
 notifications:
   email: false
