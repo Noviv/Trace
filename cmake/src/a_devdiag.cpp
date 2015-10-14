@@ -19,7 +19,6 @@ void a_devdiag() {
 		}
 	}
 
-	
 	int inum;
 	printf("Enter the interface number (1-%d): ", i);
 	scanf_s("%d", &inum);
@@ -68,7 +67,7 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	printf("%d.%d.%d.%d.%d -> %d.%d.%d.%d.%d           \r",
+	printf("%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d           \r",
 		ih->saddr.byte1,
 		ih->saddr.byte2,
 		ih->saddr.byte3,
