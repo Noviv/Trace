@@ -2,7 +2,7 @@
 A tool that allows a user to select and trace a single packet.
 
 ## Use
-You must have [CMake](https://cmake.org/) and a Pcap library installed. The library used in this project is [WinPcap](https://www.winpcap.org/). Linux is also supported: use <code>sudo apt-get install libpcap-dev</code> to install Libpcap on a Linux machine.
+You must have [CMake](https://cmake.org/) and a Pcap library installed. The library used in this project is [WinPcap](https://www.winpcap.org/). Linux is also supported: use <code>sudo apt-get install libpcap-dev</code> to install Libpcap on a **Linux** machine.
 <ol>
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
@@ -12,7 +12,7 @@ You must have [CMake](https://cmake.org/) and a Pcap library installed. The libr
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
   <li>Right-click the Trace project in the Solution Explorer and set it as the startup project</li>
   <li>Right-click the Trace project in the Solution Explorer and open properties</li>
-  <li>Move to <code>Linker --> Input</code> and add <code>wpcap.lib</code> and <code>ws2_32.lib</code>.
+  <li><b>Windows only:</b> Move to <code>Linker --> Input</code> and add <code>wpcap.lib</code> and <code>ws2_32.lib</code>.
   <li>Build solution/project (Ctrl+Shift+B or right click and press build)</li>
   <li>Done!</li>
 </ol>
