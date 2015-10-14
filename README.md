@@ -30,4 +30,5 @@ Escape Character | Error about "\P" escape character shows up in CMake console |
 ## To do
 [&nbsp;&nbsp;] Add instructions for other CMake generators (i.e. Borland, Ninja, CodeBlocks)<br>
 [X] Add CMake support for Linux and <code>Libpcap</code> header files<br>
-[&nbsp;&nbsp;] Clean up CMake file
+[&nbsp;&nbsp;] Clean up CMake file<br>
+[&nbsp;&nbsp;] Write seperate instructions for Windows/Linux
