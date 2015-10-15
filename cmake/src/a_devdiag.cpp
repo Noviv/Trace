@@ -6,7 +6,7 @@ void a_devdiag() {
 	char errbuf[PCAP_ERRBUF_SIZE];
 
 	if (pcap_findalldevs(&alldevs, errbuf) == -1) {
-		printf("Error in pcap_findalldevs: %s\n", errbuf);
+		printf("Could not find all network devices: %s\n", errbuf);
 		exit(1);
 	}
 
@@ -15,7 +15,7 @@ void a_devdiag() {
 	for (d = alldevs; d; d = d->next) {
 		printf("%d. %s", ++i, d->name);
 		if (d->description) {
-			printf(" (%s)\n", d->description);
+			printf(" (%s)\n\n", d->description);
 		}
 	}
 
@@ -27,7 +27,7 @@ void a_devdiag() {
 
 	pcap_t *adhandle;
 	if ((adhandle = pcap_open_live(d->name, 65536, 1000, NULL, errbuf)) == NULL) {
-		printf("Unable to open the network adapter. %s is not supported by WinPcap\n", d->name);
+		printf("Unable to open the network adapter! %s is not supported by WinPcap\n", d->name);
 		pcap_freealldevs(alldevs);
 		exit(1);
 	}
@@ -36,9 +36,30 @@ void a_devdiag() {
 		printf("Not using an ethernet device: output may not always be correct.\n");
 	}
 
+	u_int netmask;
+	if (d->addresses != NULL) {
+		netmask = ((struct sockaddr_in *)(d->addresses->netmask))->sin_addr.S_un.S_addr;
+	}
+	else {
+		netmask = 0xffffff;
+	}
+	
+	struct bpf_program fcode;
+	char a_packetfilter[] = "ip and udp";
+	if (pcap_compile(adhandle, &fcode, a_packetfilter, 1, netmask) < 0) {
+		printf("Unable to compile packet filter!\n");
+		pcap_freealldevs(alldevs);
+		exit(1);
+	}
+
+	if (pcap_setfilter(adhandle, &fcode) < 0) {
+		printf("Unable to set packet filter!\n");
+		pcap_freealldevs(alldevs);
+		exit(1);
+	}
 
 	pcap_freealldevs(alldevs);
-	printf("Starting active diagnostics...\n");
+	printf("\nStarting active diagnostics...\n\n");
 
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
@@ -67,7 +88,7 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	printf("%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d           \r",
+	printf("%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d           \n",
 		ih->saddr.byte1,
 		ih->saddr.byte2,
 		ih->saddr.byte3,
