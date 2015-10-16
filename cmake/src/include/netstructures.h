@@ -29,3 +29,9 @@ typedef struct udp_header {
 	u_short len;
 	u_short crc;
 } udp_header;
+
+typedef struct eth_header {
+	u_char dst[6];
+	u_char src[6];
+	u_short type;
+} eth_header;
