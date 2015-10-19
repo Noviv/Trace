@@ -2,19 +2,19 @@ language: cpp
 
 compiler: gcc
 
-sudo: require
-
 solution: Trace.sln
 
 branches:
   only:
     - build
 
-install: sudo apt-get install libpcap-dev
+addons:
+  apt:
+    packages:
+    - cmake
+    - libpcap-dev
 
-before_script:
-  - cd build
-  - find -iname "pcap.h"
+before_script: cd build
 
 script: cmake ../cmake/
 
