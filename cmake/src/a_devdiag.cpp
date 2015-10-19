@@ -65,12 +65,9 @@ void a_devdiag() {
 }
 
 char* getDeviceStatus(pcap_if_t* d) {
-	int count = 1;
-
 	pcap_t *_d;
-	char _errbuf[PCAP_ERRBUF_SIZE];
 
-	if ((_d = pcap_open_live(d->name, 100, 1, 1000, _errbuf)) == NULL) {
+	if ((_d = pcap_open_live(d->name, 100, 1, 1000, NULL)) == NULL) {
 		printf("Unable to open device %s.\n", d->name);
 		return "err";
 	}
