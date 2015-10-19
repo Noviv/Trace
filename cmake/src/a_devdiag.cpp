@@ -22,6 +22,10 @@ void a_devdiag() {
 	int inum;
 	printf("Enter the interface number (1-%d): ", i);
 	scanf_s("%d", &inum);
+	if (inum < 0 || inum > i) {
+		printf("Number out of range!");
+		exit(1);
+	}
 
 	for (d = alldevs, i = 0; i< inum - 1; d = d->next, i++);
 
