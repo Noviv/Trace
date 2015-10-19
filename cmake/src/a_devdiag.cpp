@@ -15,7 +15,7 @@ void a_devdiag() {
 	for (d = alldevs; d; d = d->next) {
 		printf("%d. %s", ++i, d->name);
 		if (d->description) {
-			printf(" (%s)\n\n", d->description);
+			printf(" - %s (%s)\n\n", d->description, getDeviceStatus(d));
 		}
 	}
 
@@ -62,6 +62,10 @@ void a_devdiag() {
 	printf("\nStarting active diagnostics...\n\n");
 
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
+}
+
+char* getDeviceStatus(pcap_if_t* d) {
+	return "status";
 }
 
 void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
