@@ -19,7 +19,7 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
   <li>Right-click the Trace project in the Solution Explorer and set it as the startup project</li>
   <li>Right-click the Trace project in the Solution Explorer and open properties</li>
-  <li>Move to <code>Linker --> Input</code> and add <code>wpcap.lib</code> and <code>ws2_32.lib</code>.
+  <li>Move to <code>Linker --> Input</code> and add <code>wpcap.lib</code> and <code>ws2_32.lib</code></li>
   <li>Build solution/project (Ctrl+Shift+B or right click and press build)</li>
   <li>Done!</li>
 </ol>
@@ -34,7 +34,7 @@ You must have two packages: [CMake](https://cmake.org/) and [Libpcap](http://www
   <li>Move to <code>build/</code> and open the project in the generator you build into</li>
   <li>Set the Trace project as the startup project</li>
   <li>Edit the properties of the project</li>
-  <li>Add <code>wpcap.lib</code> to the linked libraries.
+  <li>Add <code>wpcap.lib</code> to the linked libraries</li>
   <li>Build project</li>
   <li>Done!</li>
 </ol>
