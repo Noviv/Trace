@@ -1,9 +1,10 @@
 # Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Forkability](https://img.shields.io/badge/forkability-limited-yellow.svg)](https://basicallydan.github.io/forkability/?u=Noviv&r=Trace)
-A tool that allows a user to select and trace a single packet.
+A tool that allows a user to select and trace a single packet. Latest Version: [v1.1.0](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
 
 ## Download
 Version | Description | Download
 --- | --- | ---
+v1.1.0 | Wndows only version that gives information about all network devices and allows the user to select and interface to monitor. Packet-tracing still not avaliable. | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
 v1.0.0 | Windows only version that allows for the user to select an interface and monitor traffic. Packet-tracing not avaliable in this version. | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
 
 ## Build
