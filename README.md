@@ -1,4 +1,4 @@
-# Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+# Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Forkability](https://img.shields.io/badge/forkability-limited-yellow.svg)](https://basicallydan.github.io/forkability/?u=Noviv&r=Trace)
 A tool that allows a user to select and trace a single packet.
 
 ## Download
