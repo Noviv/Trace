@@ -80,8 +80,18 @@ char* getDeviceStatus(pcap_if_t* d) {
 	struct pcap_pkthdr *header;
 	int res;
 
-	res = pcap_next_ex(_d, &header, &pkt_data);
-	if (res == 0) {
+	int timeoutCount = 0;
+	int activeCount = 0;
+	for (int i = 0; i < 5; i++) {
+		res = pcap_next_ex(_d, &header, &pkt_data);
+		if (res == 0) {
+			timeoutCount++;
+		}
+		else {
+			activeCount++;
+		}
+	}
+	if (timeoutCount >= activeCount) {
 		return "timeout";
 	}
 	else {
@@ -103,7 +113,7 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	local_tv_sec = header->ts.tv_sec;
 	localtime_s(&ltime, &local_tv_sec);
 	strftime(timestr, sizeof(timestr), "%H:%M:%S", &ltime);
-	printf("%s,%.6d len:%d  ", timestr, header->ts.tv_usec, header->len);
+	
 
 	ih = (ip_header *)(pkt_data + 14);
 
@@ -113,7 +123,9 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	printf("%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d           \n",
+	printf("%s,%.6d len(datagram:%d total:%d) ", timestr, header->ts.tv_usec, header->len, ih->tlen);
+
+	printf("%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d\n",
 		ih->saddr.byte1,
 		ih->saddr.byte2,
 		ih->saddr.byte3,
