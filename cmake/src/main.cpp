@@ -4,6 +4,5 @@
 int main() {
 	p_devdiag();
 	a_devdiag();
-	getchar();
 	return 0;
 }
