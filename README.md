@@ -1,4 +1,4 @@
-# Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace)
+# Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 A tool that allows a user to select and trace a single packet.
 
 ## Download
