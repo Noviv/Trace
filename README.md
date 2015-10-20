@@ -1,7 +1,12 @@
 # Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace)
 A tool that allows a user to select and trace a single packet.
 
-## Use
+## Download
+Version | Description | Download
+--- | --- | ---
+v1.0.0 | Windows only version that allows for the user to select an interface and monitor traffic. Packet-tracing not avaliable in this version. | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
+
+## Code
 You must have [CMake](https://cmake.org/) and a Pcap library installed. The library used in this project is [WinPcap](https://www.winpcap.org/). Linux is also supported: use <code>sudo apt-get install libpcap-dev</code> to install Libpcap on a Linux machine.
 <ol>
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
@@ -20,7 +25,8 @@ You must have [CMake](https://cmake.org/) and a Pcap library installed. The libr
 ## Known Bugs
 Name | Description | Workaround | Status
 --- | --- | --- | ---
-Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>build</code>, press Configure, then Generate | Unsolved
+Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>.../build</code>, press Configure, then Generate | Unsolved
+Device Timeout | A device that is actually active may have the timeout label in the console | None, happens sporadically | Unsolved
 
 
 ## Branches
@@ -29,6 +35,5 @@ Escape Character | Error about "\P" escape character shows up in CMake console |
 
 ## To do
 [&nbsp;&nbsp;] Add instructions for other CMake generators (i.e. Borland, Ninja, CodeBlocks)<br>
-[X] Add CMake support for Linux and <code>Libpcap</code> header files<br>
 [&nbsp;&nbsp;] Clean up CMake file<br>
 [&nbsp;&nbsp;] Write seperate instructions for Windows/Linux
