@@ -16,6 +16,7 @@ void p_devdiag() {
 	for (d = alldevs; d != NULL; d = d->next) {
 		print_device(d, ++i);
 	}
+	printf("\n");
 
 	pcap_freealldevs(alldevs);
 }
@@ -48,7 +49,7 @@ void print_device(pcap_if_t *d, unsigned int i) {
 			printf("\t\tAddress Family Name: AF_INET6\n");
 			char ip6str[128];
 			if (a->addr) {
-				printf("\t\tAddress: %s\n", ip6_string(a->addr, ip6str, sizeof(ip6str)));
+				printf("\t\tAddress: %s\n\n", ip6_string(a->addr, ip6str, sizeof(ip6str)));
 			}
 			break;
 		}
