@@ -4,8 +4,8 @@ A Windows only tool that allows a user to select and trace a single packet. Late
 ## Download
 Version | Description | Download
 --- | --- | ---
-v1.1.0 | Wndows only version that gives information about all network devices and allows the user to select and interface to monitor. Packet-tracing still not avaliable. | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
-v1.0.0 | Windows only version that allows for the user to select an interface and monitor traffic. Packet-tracing not avaliable in this version. | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
+v1.1.0 | Fixed spacing and added new information to output | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
+v1.0.0 | Complete version that allows for the user to select an interface and monitor traffic. Packet-tracing not avaliable in this version. | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
 
 ## Windows Build
 You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/) installed. This project was developed using WinPcap in Visual Studio 2015.
