@@ -29,10 +29,5 @@ Name | Description | Workaround | Status
 Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>.../build</code>, press Configure, then Generate | Unsolved
 Device Timeout | A device that is actually active may have the timeout label in the console | None, happens sporadically | Unsolved
 
-
-## Branches
-<code>master</code> - most recent updates<br>
-<code>build</code> - stable build<br>
-
 ## To do
 [&nbsp;&nbsp;] Clean up CMake file<br>
