@@ -123,9 +123,9 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	printf("%s,%.6d len(datagram:%d total:%d) ", timestr, header->ts.tv_usec, header->len, ih->tlen);
+	printf("%s,%.6d len(dgrm:%d tot:%d) ", timestr, header->ts.tv_usec, header->len, ih->tlen);
 
-	printf("%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d\n",
+	printf("%d.%d.%d.%d:%d->%d.%d.%d.%d:%d\n",
 		ih->saddr.byte1,
 		ih->saddr.byte2,
 		ih->saddr.byte3,
