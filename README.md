@@ -1,4 +1,4 @@
-# Trace [![Build Status](https://travis-ci.org/Noviv/Trace.svg)](https://travis-ci.org/Noviv/Trace) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Forkability](https://img.shields.io/badge/forkability-limited-yellow.svg)](https://basicallydan.github.io/forkability/?u=Noviv&r=Trace)
+# Trace [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Forkability](https://img.shields.io/badge/forkability-limited-yellow.svg)](https://basicallydan.github.io/forkability/?u=Noviv&r=Trace)
 A Windows only tool that allows a user to select and trace a single packet. Latest Version: [v1.1.0](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
 
 ## Download
