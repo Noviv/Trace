@@ -82,7 +82,7 @@ char* getDeviceStatus(pcap_if_t* d) {
 
 	int timeoutCount = 0;
 	int activeCount = 0;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 9; i++) {
 		res = pcap_next_ex(_d, &header, &pkt_data);
 		if (res == 0) {
 			timeoutCount++;
@@ -99,7 +99,11 @@ char* getDeviceStatus(pcap_if_t* d) {
 	}
 }
 
+int packet_count = 0;
+
 void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
+	packet_count++;
+
 	struct tm ltime;
 	char timestr[16];
 	ip_header *ih;
@@ -123,9 +127,13 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	printf("%s,%.6d len(dgrm:%d tot:%d) ", timestr, header->ts.tv_usec, header->len, ih->tlen);
+	printf("Packet %i:\n", packet_count);
 
-	printf("%d.%d.%d.%d:%d->%d.%d.%d.%d:%d\n",
+	printf("\tTimestamp: %s,%.6d\n", timestr, header->ts.tv_usec);
+	printf("\tDatagram length: %d\n", header->len);
+	printf("\tTotal length: %d\n", ih->tlen);
+
+	printf("\t%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d\n",
 		ih->saddr.byte1,
 		ih->saddr.byte2,
 		ih->saddr.byte3,
