@@ -1,5 +1,5 @@
-#include "include/a_devdiag.h"
-#include "include/netstructures.h"
+#include "a_devdiag.h"
+#include "netstructures.h"
 
 void a_devdiag() {
 	pcap_if_t *alldevs;

@@ -1,4 +1,4 @@
-#include "include/p_devdiag.h"
+#include "p_devdiag.h"
 
 void p_devdiag() {
 	printf("Running device diagnostics...\n");
