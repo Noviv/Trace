@@ -7,13 +7,13 @@ Version | Description | Download
 v1.1.0 | Fixed spacing and added new information to output | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
 v1.0.0 | Complete version that allows for the user to select an interface and monitor traffic. Packet-tracing not avaliable in this version. | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
 
-## Windows Build
+## Windows Development
 You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/) installed. This project was developed using WinPcap in Visual Studio 2015.
 <ol>
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
   <li>Set source directory to <code>.../cmake</code> and the build directory to <code>.../build</code> (or whatever you want it to be)</li>
-  <li>Press "Generate" (<code>touch</code> and non-CMake files will be deleted)</li>
+  <li>Press "Generate" (<code>touch</code> and non-CMake files will not be deleted, but can be)</li>
   <li>Select the version of Visual Studio you want Trace to build into </li>
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
   <li>Right-click the Trace project in the Solution Explorer and set it as the startup project</li>
