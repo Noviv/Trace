@@ -1,5 +1,6 @@
 #include "a_devdiag.h"
 #include "netstructures.h"
+#include "tracepacket.h"
 
 void a_devdiag() {
 	pcap_if_t *alldevs;
@@ -23,7 +24,7 @@ void a_devdiag() {
 	printf("Enter the interface number (1-%d): ", i);
 	scanf_s("%d", &inum);
 	if (inum < 0 || inum > i) {
-		printf("Number out of range!");
+		printf("Number out of range!\n");
 		exit(1);
 	}
 
@@ -92,7 +93,7 @@ char* getDeviceStatus(pcap_if_t* d) {
 		}
 	}
 	if (timeoutCount >= activeCount) {
-		return "timeout";
+		return "inactive";
 	}
 	else {
 		return "active";
@@ -126,6 +127,15 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
+
+	//define current 
+	currentpacket.count = packet_count;
+	currentpacket.timestr = timestr;
+	currentpacket.tv_usec = header->ts.tv_usec;
+	currentpacket.d_len = header->len;
+	currentpacket.t_len = ih->tlen;
+	
+	currentpacket.direction = "";
 
 	printf("Packet %i:\n", packet_count);
 
