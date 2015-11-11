@@ -56,7 +56,7 @@ void print_device(pcap_if_t *d, unsigned int i) {
 	}
 }
 
-char *ip4_string(u_long in) {
+char* ip4_string(u_long in) {
 	static char output[IP4_STRING_BUFFERS][3 * 4 + 3 + 1];
 	static char which;
 	u_char *p;
@@ -67,7 +67,7 @@ char *ip4_string(u_long in) {
 	return output[which];
 }
 
-char *ip6_string(struct sockaddr *sockaddr, char *address, int addrlen) {
+char* ip6_string(struct sockaddr *sockaddr, char *address, int addrlen) {
 	socklen_t sockaddrlen;
 
 #ifdef WIN32
