@@ -1,4 +1,5 @@
-#pragma once
+#ifndef A_DEVDIAG_H
+#define A_DEVDIAG_H
 
 #include "pcap.h"
 
@@ -14,3 +15,5 @@
 void a_devdiag();
 char* getDeviceStatus(pcap_if_t* d);
 void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
+
+#endif

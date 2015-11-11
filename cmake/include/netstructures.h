@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NETSTRUCTURES_H
+#define NETSTRUCTURES_H
 
 #include "pcap.h"
 
@@ -35,3 +36,5 @@ typedef struct eth_header {
 	u_char src[6];
 	u_short type;
 } eth_header;
+
+#endif
