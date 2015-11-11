@@ -1,3 +1,5 @@
+#include <string>
+#include <sstream>
 #include "a_devdiag.h"
 #include "netstructures.h"
 #include "tracepacket.h"
@@ -134,8 +136,29 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	currentpacket.tv_usec = header->ts.tv_usec;
 	currentpacket.d_len = header->len;
 	currentpacket.t_len = ih->tlen;
-	
-	currentpacket.direction = "";
+	std::ostringstream oss;
+	oss << "\t";
+	oss << ih->saddr.byte1;
+	oss << ".";
+	oss << ih->saddr.byte2;
+	oss << ".";
+	oss << ih->saddr.byte3;
+	oss << ".";
+	oss << ih->saddr.byte4;
+	oss << ":";
+	oss << sport;
+	oss << " -> ";
+	oss << ih->daddr.byte1;
+	oss << ".";
+	oss << ih->daddr.byte2;
+	oss << ".";
+	oss << ih->daddr.byte3;
+	oss << ".";
+	oss << ih->daddr.byte4;
+	oss << ":";
+	oss << dport;
+	oss << "\n";
+	currentpacket.direction = (char*)oss.str().c_str();
 
 	printf("Packet %i:\n", packet_count);
 
