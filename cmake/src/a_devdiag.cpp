@@ -111,26 +111,48 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	char timestr[16];
 	ip_header *ih;
 	udp_header *uh;
+	tcp_header *tcp;
 	u_int ip_len;
+	u_int tcp_len;
 	u_short sport, dport;
 	time_t local_tv_sec;
+	const u_char *payload;
 
 	(VOID)(param);
 
 	local_tv_sec = header->ts.tv_sec;
 	localtime_s(&ltime, &local_tv_sec);
 	strftime(timestr, sizeof(timestr), "%H:%M:%S", &ltime);
-	
 
 	ih = (ip_header *)(pkt_data + 14);
 
-	ip_len = (ih->ver_ihl & 0xf) * 4;
+	ip_len = IP_HL(ih) * 4;
 	uh = (udp_header *)((u_char *)ih + ip_len);
+	tcp = (tcp_header *)(pkt_data + 14 + ip_len);
+	tcp_len = TH_OFF(tcp) * 4;
+
+	payload = (u_char*)(pkt_data + 14 + ip_len + tcp_len);
 
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	//define current 
+	/*
+	const struct eth_header *ethernet;
+	const struct ip_header *ip;
+	const struct tcp_header *tcp;
+	u_int size_ip;
+	u_int size_tcp;
+
+	ethernet = (struct eth_header*)(pkt_data);
+	ip = (struct ip_header*)(pkt_data + 14);
+	size_ip = IP_HL(ip) * 4;
+	tcp = (struct tcp_header*)(pkt_data + 14 + size_ip);
+	size_tcp = TH_OFF(tcp) * 4;
+	payload = (u_char*)(pkt_data + 14 + size_ip + size_tcp);
+	*/
+
+	//define current
+	currentpacket.payload = payload;
 	currentpacket.count = packet_count;
 	currentpacket.timestr = timestr;
 	currentpacket.tv_usec = header->ts.tv_usec;

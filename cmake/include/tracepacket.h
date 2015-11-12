@@ -11,12 +11,13 @@ struct traceip {
 
 struct tracepacket {
 	unsigned int count;
-	char* timestr;
+	char *timestr;
 	unsigned long tv_usec;
 	double d_len;
 	double t_len;
 	traceip src;
 	traceip dest;
+	const u_char *payload;
 } currentpacket;
 
 void traceprintpacket() {
@@ -37,6 +38,7 @@ void traceprintpacket() {
 		currentpacket.dest.byte3,
 		currentpacket.dest.byte4,
 		currentpacket.dest.port);
+	printf("\tPayload:\n-----------------\n%s\n-----------------\n", currentpacket.payload);
 }
 
 #endif
