@@ -21,8 +21,39 @@ void p_devdiag() {
 	pcap_freealldevs(alldevs);
 }
 
+char* getDeviceStatus(pcap_if_t* d) {
+	pcap_t *_d;
+
+	if ((_d = pcap_open_live(d->name, 100, 1, 1000, NULL)) == NULL) {
+		printf("Unable to open device %s.\n", d->name);
+		return "err";
+	}
+
+	const u_char *pkt_data;
+	struct pcap_pkthdr *header;
+	int res;
+
+	int timeoutCount = 0;
+	int activeCount = 0;
+	for (int i = 0; i < 9; i++) {
+		res = pcap_next_ex(_d, &header, &pkt_data);
+		if (res == 0) {
+			timeoutCount++;
+		}
+		else {
+			activeCount++;
+		}
+	}
+	if (timeoutCount >= activeCount) {
+		return "INACTIVE";
+	}
+	else {
+		return "ACTIVE";
+	}
+}
+
 void print_device(pcap_if_t *d, unsigned int i) {
-	printf("\nDevice %i:\n", i);
+	printf("\nDevice %i: (%s)\n", i, getDeviceStatus(d));
 	printf("\tName: %s\n", d->name);
 	printf("\tDescription: %s\n", d->description);
 	printf("\tLoopback: %s\n", d->flags & PCAP_IF_LOOPBACK ? "yes" : "no");

@@ -1,6 +1,7 @@
 #ifndef TRACEPACKET_H
 #define TRACEPACKET_H
 
+#include <stdio.h>
 #include <winsock.h>
 
 struct traceip {
@@ -9,7 +10,23 @@ struct traceip {
 	u_char byte3;
 	u_char byte4;
 	u_short port;
-};
+
+	char* operator+(traceip& ip) {
+		char* ret = (char*)malloc(sizeof(char) * 60);
+		snprintf(ret, 60, "%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d",
+			this->byte1,
+			this->byte2,
+			this->byte3,
+			this->byte4,
+			this->port,
+			ip.byte1,
+			ip.byte2,
+			ip.byte3,
+			ip.byte4,
+			ip.port);
+		return ret;
+	}
+} src, dest;
 
 struct tracepacket {
 	//about
@@ -20,31 +37,11 @@ struct tracepacket {
 	double t_len;
 
 	//adv about
-	traceip src;
-	traceip dest;
 	char* directionstring;
 	
 	//contents
 	const u_char *payload;
 } currentpacket;
-
-void printipresolve(char* ip) {
-	char hostname[260];
-	char service[260];
-	sockaddr_in address;
-	memset(&address, 0, sizeof(address));
-	address.sin_family = AF_INET;
-	address.sin_addr.S_un.S_addr = inet_addr(ip);
-	int response = getnameinfo((sockaddr*)&address,
-		sizeof(address),
-		hostname, 260, service, 260, 0);
-	if (response == 0) {
-		printf("test host name: %s\n", hostname);
-	}
-	else {
-		printf("test host name: %s\n", ip);
-	}
-}
 
 void traceprintpacket() {
 	printf("Packet %i:\n", currentpacket.count);

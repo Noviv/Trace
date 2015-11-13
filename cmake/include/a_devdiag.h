@@ -10,10 +10,7 @@
 	#include <netinet/in.h>
 #endif
 
-#define ACTIVE_DIAG
-
 void a_devdiag();
-char* getDeviceStatus(pcap_if_t* d);
 void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
 
 #endif

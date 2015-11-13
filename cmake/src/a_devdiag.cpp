@@ -16,7 +16,7 @@ void a_devdiag() {
 	for (d = alldevs; d; d = d->next) {
 		printf("%d. %s", ++i, d->name);
 		if (d->description) {
-			printf(" - %s (%s)\n\n", d->description, getDeviceStatus(d));
+			printf(" - %s\n\n", d->description);
 		}
 	}
 
@@ -69,37 +69,6 @@ void a_devdiag() {
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
-char* getDeviceStatus(pcap_if_t* d) {
-	pcap_t *_d;
-
-	if ((_d = pcap_open_live(d->name, 100, 1, 1000, NULL)) == NULL) {
-		printf("Unable to open device %s.\n", d->name);
-		return "err";
-	}
-
-	const u_char *pkt_data;
-	struct pcap_pkthdr *header;
-	int res;
-
-	int timeoutCount = 0;
-	int activeCount = 0;
-	for (int i = 0; i < 9; i++) {
-		res = pcap_next_ex(_d, &header, &pkt_data);
-		if (res == 0) {
-			timeoutCount++;
-		}
-		else {
-			activeCount++;
-		}
-	}
-	if (timeoutCount >= activeCount) {
-		return "inactive";
-	}
-	else {
-		return "active";
-	}
-}
-
 int packet_count = 0;
 
 void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
@@ -142,31 +111,20 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	currentpacket.d_len = header->len;
 	currentpacket.t_len = ih->tlen;
 
-	currentpacket.src.byte1 = ih->saddr.byte1;
-	currentpacket.src.byte2 = ih->saddr.byte2;
-	currentpacket.src.byte3 = ih->saddr.byte3;
-	currentpacket.src.byte4 = ih->saddr.byte4;
-	currentpacket.src.port = sport;
+	//define src and dest IPs
+	src.byte1 = ih->saddr.byte1;
+	src.byte2 = ih->saddr.byte2;
+	src.byte3 = ih->saddr.byte3;
+	src.byte4 = ih->saddr.byte4;
+	src.port = sport;
 
-	currentpacket.dest.byte1 = ih->daddr.byte1;
-	currentpacket.dest.byte2 = ih->daddr.byte2;
-	currentpacket.dest.byte3 = ih->daddr.byte3;
-	currentpacket.dest.byte4 = ih->daddr.byte4;
-	currentpacket.dest.port = dport;
-	
-	char dststring[55] = "";
-	snprintf(dststring, 100, "%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d",
-		currentpacket.src.byte1,
-		currentpacket.src.byte2,
-		currentpacket.src.byte3,
-		currentpacket.src.byte4,
-		currentpacket.src.port,
-		currentpacket.dest.byte1,
-		currentpacket.dest.byte2,
-		currentpacket.dest.byte3,
-		currentpacket.dest.byte4,
-		currentpacket.dest.port);
-	currentpacket.directionstring = dststring;
+	dest.byte1 = ih->daddr.byte1;
+	dest.byte2 = ih->daddr.byte2;
+	dest.byte3 = ih->daddr.byte3;
+	dest.byte4 = ih->daddr.byte4;
+	dest.port = dport;
+
+	currentpacket.directionstring = src + dest;
 
 	traceprintpacket();
 }
