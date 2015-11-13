@@ -1,5 +1,3 @@
-#include <string>
-#include <sstream>
 #include "a_devdiag.h"
 #include "netstructures.h"
 #include "tracepacket.h"
@@ -136,13 +134,6 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	if (ip_len < 20) {
-		printf("Invalid IP header length %i\n", ip_len);
-	}
-	if (tcp_len < 20) {
-		printf("Invalid TCP header length %i\n", tcp_len);
-	}
-
 	//define current
 	currentpacket.payload = payload;
 	currentpacket.count = packet_count;
@@ -163,23 +154,19 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	currentpacket.dest.byte4 = ih->daddr.byte4;
 	currentpacket.dest.port = dport;
 	
-	/*char* srcIP = "";
-	sprintf_s(srcIP, sizeof(char[12]), "%i.%i.%i.%i", currentpacket.src.byte1,
+	char dststring[55] = "";
+	snprintf(dststring, 100, "%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d",
+		currentpacket.src.byte1,
 		currentpacket.src.byte2,
 		currentpacket.src.byte3,
 		currentpacket.src.byte4,
-		currentpacket.src.port);
-	srcIP = gethostname(srcIP);
-	char* destIP = "";
-	sprintf_s(destIP, sizeof(char[12]), "%i.%i.%i.%i", currentpacket.dest.byte1,
+		currentpacket.src.port,
+		currentpacket.dest.byte1,
 		currentpacket.dest.byte2,
 		currentpacket.dest.byte3,
 		currentpacket.dest.byte4,
 		currentpacket.dest.port);
-	destIP = gethostname(destIP);
-	sprintf_s(currentpacket.directionstring, sizeof(char[9]), "%s -> %s", srcIP, destIP);*/
-	
-	currentpacket.directionstring = "";
+	currentpacket.directionstring = dststring;
 
 	traceprintpacket();
 }

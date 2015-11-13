@@ -12,18 +12,23 @@ struct traceip {
 };
 
 struct tracepacket {
+	//about
 	unsigned int count;
 	char *timestr;
 	unsigned long tv_usec;
 	double d_len;
 	double t_len;
+
+	//adv about
 	traceip src;
 	traceip dest;
-	const u_char *payload;
 	char* directionstring;
+	
+	//contents
+	const u_char *payload;
 } currentpacket;
 
-char* gethostname(char* ip) {
+void printipresolve(char* ip) {
 	char hostname[260];
 	char service[260];
 	sockaddr_in address;
@@ -35,33 +40,21 @@ char* gethostname(char* ip) {
 		hostname, 260, service, 260, 0);
 	if (response == 0) {
 		printf("test host name: %s\n", hostname);
-		return hostname;
 	}
 	else {
-		return ip;
+		printf("test host name: %s\n", ip);
 	}
 }
 
 void traceprintpacket() {
 	printf("Packet %i:\n", currentpacket.count);
 
+	printf("\t%s\n", currentpacket.directionstring);
+
 	printf("\tTimestamp: %s,%.6d\n", currentpacket.timestr, currentpacket.tv_usec);
 	printf("\tDatagram length: %lf\n", currentpacket.d_len);
 	printf("\tTotal length: %lf\n", currentpacket.t_len);
 
-	printf("\t%s\n", currentpacket.directionstring);
-
-	/*printf("\t%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d\n",
-		currentpacket.src.byte1,
-		currentpacket.src.byte2,
-		currentpacket.src.byte3,
-		currentpacket.src.byte4,
-		currentpacket.src.port,
-		currentpacket.dest.byte1,
-		currentpacket.dest.byte2,
-		currentpacket.dest.byte3,
-		currentpacket.dest.byte4,
-		currentpacket.dest.port);*/
 	printf("\tPayload:\n-----------------\n%s\n-----------------\n", currentpacket.payload);
 }
 
