@@ -30,7 +30,7 @@ void a_devdiag() {
 		exit(1);
 	}
 
-	for (d = alldevs, i = 0; i< inum - 1; d = d->next, i++);
+	for (d = alldevs, i = 0; i < inum - 1; d = d->next, i++);
 
 	pcap_t *adhandle;
 	if ((adhandle = pcap_open_live(d->name, 65536, 1, 1000, errbuf)) == NULL) {
@@ -50,7 +50,7 @@ void a_devdiag() {
 	else {
 		netmask = 0xffffff;
 	}
-	
+
 	struct bpf_program fcode;
 	char a_packetfilter[] = "ip and udp";
 	if (pcap_compile(adhandle, &fcode, a_packetfilter, 1, netmask) < 0) {
@@ -124,32 +124,24 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	localtime_s(&ltime, &local_tv_sec);
 	strftime(timestr, sizeof(timestr), "%H:%M:%S", &ltime);
 
-	ih = (ip_header *)(pkt_data + 14);
-
+	ih = (ip_header*)(pkt_data + ETH_SIZE);
 	ip_len = IP_HL(ih) * 4;
-	uh = (udp_header *)((u_char *)ih + ip_len);
-	tcp = (tcp_header *)(pkt_data + 14 + ip_len);
+
+	uh = (udp_header*)((u_char *)ih + ip_len);
+	tcp = (tcp_header*)(pkt_data + ETH_SIZE + ip_len);
 	tcp_len = TH_OFF(tcp) * 4;
 
-	payload = (u_char*)(pkt_data + 14 + ip_len + tcp_len);
+	payload = (u_char*)(pkt_data + ETH_SIZE + ip_len + tcp_len);
 
 	sport = ntohs(uh->sport);
 	dport = ntohs(uh->dport);
 
-	/*
-	const struct eth_header *ethernet;
-	const struct ip_header *ip;
-	const struct tcp_header *tcp;
-	u_int size_ip;
-	u_int size_tcp;
-
-	ethernet = (struct eth_header*)(pkt_data);
-	ip = (struct ip_header*)(pkt_data + 14);
-	size_ip = IP_HL(ip) * 4;
-	tcp = (struct tcp_header*)(pkt_data + 14 + size_ip);
-	size_tcp = TH_OFF(tcp) * 4;
-	payload = (u_char*)(pkt_data + 14 + size_ip + size_tcp);
-	*/
+	if (ip_len < 20) {
+		printf("Invalid IP header length %i\n", ip_len);
+	}
+	if (tcp_len < 20) {
+		printf("Invalid TCP header length %i\n", tcp_len);
+	}
 
 	//define current
 	currentpacket.payload = payload;
@@ -170,6 +162,24 @@ void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_ch
 	currentpacket.dest.byte3 = ih->daddr.byte3;
 	currentpacket.dest.byte4 = ih->daddr.byte4;
 	currentpacket.dest.port = dport;
+	
+	/*char* srcIP = "";
+	sprintf_s(srcIP, sizeof(char[12]), "%i.%i.%i.%i", currentpacket.src.byte1,
+		currentpacket.src.byte2,
+		currentpacket.src.byte3,
+		currentpacket.src.byte4,
+		currentpacket.src.port);
+	srcIP = gethostname(srcIP);
+	char* destIP = "";
+	sprintf_s(destIP, sizeof(char[12]), "%i.%i.%i.%i", currentpacket.dest.byte1,
+		currentpacket.dest.byte2,
+		currentpacket.dest.byte3,
+		currentpacket.dest.byte4,
+		currentpacket.dest.port);
+	destIP = gethostname(destIP);
+	sprintf_s(currentpacket.directionstring, sizeof(char[9]), "%s -> %s", srcIP, destIP);*/
+	
+	currentpacket.directionstring = "";
 
 	traceprintpacket();
 }

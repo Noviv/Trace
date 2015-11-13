@@ -65,6 +65,7 @@ typedef struct eth_header {
 	u_char dst[6];//destination host address
 	u_char src[6];//source host address
 	u_short type;//IP/ARP/RARP/misc
+#define ETH_SIZE 14
 } eth_header;
 
 #endif

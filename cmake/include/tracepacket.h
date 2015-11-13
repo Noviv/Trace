@@ -1,6 +1,8 @@
 #ifndef TRACEPACKET_H
 #define TRACEPACKET_H
 
+#include <winsock.h>
+
 struct traceip {
 	u_char byte1;
 	u_char byte2;
@@ -18,7 +20,27 @@ struct tracepacket {
 	traceip src;
 	traceip dest;
 	const u_char *payload;
+	char* directionstring;
 } currentpacket;
+
+char* gethostname(char* ip) {
+	char hostname[260];
+	char service[260];
+	sockaddr_in address;
+	memset(&address, 0, sizeof(address));
+	address.sin_family = AF_INET;
+	address.sin_addr.S_un.S_addr = inet_addr(ip);
+	int response = getnameinfo((sockaddr*)&address,
+		sizeof(address),
+		hostname, 260, service, 260, 0);
+	if (response == 0) {
+		printf("test host name: %s\n", hostname);
+		return hostname;
+	}
+	else {
+		return ip;
+	}
+}
 
 void traceprintpacket() {
 	printf("Packet %i:\n", currentpacket.count);
@@ -27,7 +49,9 @@ void traceprintpacket() {
 	printf("\tDatagram length: %lf\n", currentpacket.d_len);
 	printf("\tTotal length: %lf\n", currentpacket.t_len);
 
-	printf("\t%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d\n",
+	printf("\t%s\n", currentpacket.directionstring);
+
+	/*printf("\t%d.%d.%d.%d:%d -> %d.%d.%d.%d:%d\n",
 		currentpacket.src.byte1,
 		currentpacket.src.byte2,
 		currentpacket.src.byte3,
@@ -37,7 +61,7 @@ void traceprintpacket() {
 		currentpacket.dest.byte2,
 		currentpacket.dest.byte3,
 		currentpacket.dest.byte4,
-		currentpacket.dest.port);
+		currentpacket.dest.port);*/
 	printf("\tPayload:\n-----------------\n%s\n-----------------\n", currentpacket.payload);
 }
 
