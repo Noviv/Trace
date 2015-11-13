@@ -1,11 +1,12 @@
 # Trace [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Forkability](https://img.shields.io/badge/forkability-limited-yellow.svg)](https://basicallydan.github.io/forkability/?u=Noviv&r=Trace)
-A Windows only tool that allows a user to select and trace a single packet. Latest Version: [v1.1.0](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
+A Windows tool that allows users to diagnose their network devices and trace single packets. Latest Version: [v1.2.0](https://github.com/Noviv/Trace/releases/download/v1.2.0/Trace.exe)
 
 ## Download
-Version | Description | Download
+Version | Quick Description | Download
 --- | --- | ---
-v1.1.0 | Fixed spacing and added new information to output | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
-v1.0.0 | Complete version that allows for the user to select an interface and monitor traffic. Packet-tracing not avaliable in this version. | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
+v1.2.0 | Much prettier output and more detailed information | [Download](https://github.com/Noviv/Trace/releases/download/v1.2.0/Trace.exe)
+v1.1.0 | Prettier output | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe)
+v1.0.0 | Very simplistic inital version of Trace | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe)
 
 ## Windows Development
 You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/) installed. This project was developed using WinPcap in Visual Studio 2015.
@@ -20,14 +21,15 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
   <li>Right-click the Trace project in the Solution Explorer and open properties</li>
   <li>Move to <code>Linker --> Input</code> and add <code>wpcap.lib</code>, <code>ws2_32.lib</code>, and <code>Packet.lib</code></li>
   <li>Build solution/project (Ctrl+Shift+B or right click and press build)</li>
-  <li>Done!</li>
 </ol>
 
 ## Known Bugs
 Name | Description | Workaround | Status
 --- | --- | --- | ---
 Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>.../build</code>, press Configure, then Generate | Unsolved
-Device Timeout | A device that is actually active may have the timeout label in the console | None, happens sporadically | Unsolved
+Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
+Binary Data | Binary data is printed out as part of the payload | Future version will fix this | In progress
 
 ## To do
 [&nbsp;&nbsp;] Clean up CMake file<br>
+[&nbsp;&nbsp;] Find a better way to check whether or not a device is active<br>
