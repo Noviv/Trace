@@ -33,3 +33,4 @@ Binary Data | Binary data is printed out as part of the payload | Future version
 ## To do
 [&nbsp;&nbsp;] Clean up CMake file<br>
 [&nbsp;&nbsp;] Find a better way to check whether or not a device is active<br>
+[&nbsp;&nbsp;] Edit CONTRIBUTING and CHANGELOG<br>
