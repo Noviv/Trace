@@ -40,6 +40,7 @@ struct tracepacket {
 	char* directionstring;
 	
 	//contents
+	double size_payload;
 	const u_char *payload;
 } currentpacket;
 
@@ -49,8 +50,9 @@ void traceprintpacket() {
 	printf("\t%s\n", currentpacket.directionstring);
 
 	printf("\tTimestamp: %s,%.6d\n", currentpacket.timestr, currentpacket.tv_usec);
-	printf("\tDatagram length: %lf\n", currentpacket.d_len);
-	printf("\tTotal length: %lf\n", currentpacket.t_len);
+	printf("\tDatagram length: %f\n", currentpacket.d_len);
+	printf("\tPayload length: %f\n", currentpacket.size_payload);
+	printf("\tTotal length: %f\n", currentpacket.t_len);
 
 	printf("\tPayload:\n-----------------\n%s\n-----------------\n", currentpacket.payload);
 }
