@@ -31,7 +31,7 @@ struct traceip {
 struct tracepacket {
 	//about
 	unsigned int count;
-	char *timestr;
+	char* timestr;
 	unsigned long tv_usec;
 	double d_len;
 	double t_len;
@@ -41,7 +41,7 @@ struct tracepacket {
 	
 	//contents
 	double size_payload;
-	const u_char *payload;
+	const u_char* payload;
 } currentpacket;
 
 void traceprintpacket() {

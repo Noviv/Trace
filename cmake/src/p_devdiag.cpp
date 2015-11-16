@@ -3,7 +3,7 @@
 void p_devdiag() {
 	printf("Running device diagnostics...\n");
 
-	pcap_if_t *alldevs;
+	pcap_if_t* alldevs;
 	char errbuf[PCAP_ERRBUF_SIZE];
 
 	if (pcap_findalldevs(&alldevs, errbuf) == -1) {
@@ -11,7 +11,7 @@ void p_devdiag() {
 		exit(1);
 	}
 
-	pcap_if_t *d;
+	pcap_if_t* d;
 	unsigned int i = 0;
 	for (d = alldevs; d != NULL; d = d->next) {
 		print_device(d, ++i);
@@ -22,15 +22,15 @@ void p_devdiag() {
 }
 
 char* getDeviceStatus(pcap_if_t* d) {
-	pcap_t *_d;
+	pcap_t* _d;
 
 	if ((_d = pcap_open_live(d->name, 100, 1, 1000, NULL)) == NULL) {
 		printf("Unable to open device %s.\n", d->name);
 		return "err";
 	}
 
-	const u_char *pkt_data;
-	struct pcap_pkthdr *header;
+	const u_char* pkt_data;
+	struct pcap_pkthdr* header;
 	int res;
 
 	int timeoutCount = 0;
@@ -52,12 +52,12 @@ char* getDeviceStatus(pcap_if_t* d) {
 	}
 }
 
-void print_device(pcap_if_t *d, unsigned int i) {
+void print_device(pcap_if_t* d, unsigned int i) {
 	printf("\nDevice %i: (%s)\n", i, getDeviceStatus(d));
 	printf("\tName: %s\n", d->name);
 	printf("\tDescription: %s\n", d->description);
 	printf("\tLoopback: %s\n", d->flags & PCAP_IF_LOOPBACK ? "yes" : "no");
-	for (pcap_addr_t *a = d->addresses; a; a = a->next) {
+	for (pcap_addr_t* a = d->addresses; a; a = a->next) {
 		printf("\tAddress Family: #%d\n", a->addr->sa_family);
 
 		switch (a->addr->sa_family) {
@@ -90,7 +90,7 @@ void print_device(pcap_if_t *d, unsigned int i) {
 char* ip4_string(u_long in) {
 	static char output[IP4_STRING_BUFFERS][3 * 4 + 3 + 1];
 	static char which;
-	u_char *p;
+	u_char* p;
 
 	p = (u_char *)&in;
 	which = which + 1 == IP4_STRING_BUFFERS ? 0 : which + 1;
@@ -98,7 +98,7 @@ char* ip4_string(u_long in) {
 	return output[which];
 }
 
-char* ip6_string(struct sockaddr *sockaddr, char *address, int addrlen) {
+char* ip6_string(struct sockaddr* sockaddr, char* address, int addrlen) {
 	socklen_t sockaddrlen;
 
 #ifdef WIN32

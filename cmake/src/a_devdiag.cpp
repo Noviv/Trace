@@ -3,7 +3,7 @@
 #include "tracepacket.h"
 
 void a_devdiag() {
-	pcap_if_t *alldevs;
+	pcap_if_t* alldevs;
 	char errbuf[PCAP_ERRBUF_SIZE];
 
 	if (pcap_findalldevs(&alldevs, errbuf) == -1) {
@@ -12,7 +12,7 @@ void a_devdiag() {
 	}
 
 	int i = 0;
-	pcap_if_t *d;
+	pcap_if_t* d;
 	for (d = alldevs; d; d = d->next) {
 		printf("%d. %s", ++i, d->name);
 		if (d->description) {
@@ -30,7 +30,7 @@ void a_devdiag() {
 
 	for (d = alldevs, i = 0; i < inum - 1; d = d->next, i++);
 
-	pcap_t *adhandle;
+	pcap_t* adhandle;
 	if ((adhandle = pcap_open_live(d->name, 65536, 1, 1000, errbuf)) == NULL) {
 		printf("Unable to open the network adapter! %s is not supported by WinPcap\n", d->name);
 		pcap_freealldevs(alldevs);
@@ -71,19 +71,19 @@ void a_devdiag() {
 
 int packet_count = 0;
 
-void a_packethandler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
+void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_char* pkt_data) {
 	packet_count++;
 
 	struct tm ltime;
 	char timestr[16];
-	ip_header *ip;
-	udp_header *udp;
-	tcp_header *tcp;
+	ip_header* ip;
+	udp_header* udp;
+	tcp_header* tcp;
 	u_int ip_len;
 	u_int tcp_len;
 	u_short sport, dport;
 	time_t local_tv_sec;
-	const u_char *payload;
+	const u_char* payload;
 
 	(VOID)(param);
 
