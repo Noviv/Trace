@@ -37,7 +37,6 @@ struct tracepacket {
 
 	//adv about
 	char* directionstring;
-	bool loaded;
 	
 	//contents
 	double size_payload;
