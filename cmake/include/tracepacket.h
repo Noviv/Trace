@@ -2,7 +2,6 @@
 #define TRACEPACKET_H
 
 #include <stdio.h>
-#include <winsock.h>
 
 struct traceip {
 	u_char byte1;
@@ -38,23 +37,11 @@ struct tracepacket {
 
 	//adv about
 	char* directionstring;
+	bool loaded;
 	
 	//contents
 	double size_payload;
 	const u_char* payload;
 } currentpacket;
-
-void traceprintpacket() {
-	printf("Packet %i:\n", currentpacket.count);
-
-	printf("\t%s\n", currentpacket.directionstring);
-
-	printf("\tTimestamp: %s,%.6d\n", currentpacket.timestr, currentpacket.tv_usec);
-	printf("\tDatagram length: %f\n", currentpacket.d_len);
-	printf("\tPayload length: %f\n", currentpacket.size_payload);
-	printf("\tTotal length: %f\n", currentpacket.t_len);
-
-	printf("\tPayload:\n-----------------\n%s\n-----------------\n", currentpacket.payload);
-}
 
 #endif

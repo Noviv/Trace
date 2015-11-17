@@ -1,3 +1,6 @@
+#include <thread>
+#include <vector>
+
 #include "a_devdiag.h"
 #include "netstructures.h"
 #include "tracepacket.h"
@@ -31,7 +34,7 @@ void a_devdiag() {
 	for (d = alldevs, i = 0; i < inum - 1; d = d->next, i++);
 
 	pcap_t* adhandle;
-	if ((adhandle = pcap_open_live(d->name, 65536, 1, 1000, errbuf)) == NULL) {
+	if ((adhandle = pcap_open_live(d->name, 65536, 1, 500, errbuf)) == NULL) {
 		printf("Unable to open the network adapter! %s is not supported by WinPcap\n", d->name);
 		pcap_freealldevs(alldevs);
 		exit(1);
@@ -66,7 +69,34 @@ void a_devdiag() {
 	pcap_freealldevs(alldevs);
 	printf("\nStarting active diagnostics...\n\n");
 
+	std::thread concurrent(cprocess);
+
+	printf("Started PCAP processing...\n");
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
+}
+
+std::vector<tracepacket> pbuffer;
+
+void cprocess() {
+	printf("Started concurrent processing - interval: %d\n", TRACE_PRINT_DELAY);
+	while (true) {
+		if (!pbuffer.empty()) {
+			tracepacket packet = pbuffer.front();
+			printf("Packet %i:\n", packet.count);
+
+			printf("\t%s\n", packet.directionstring);
+
+			printf("\tTimestamp: %s,%.6d\n", packet.timestr, packet.tv_usec);
+			printf("\tDatagram length: %f\n", packet.d_len);
+			printf("\tPayload length: %f\n", packet.size_payload);
+			printf("\tTotal length: %f\n", packet.t_len);
+
+			printf("\tPayload:\n-----------------\n%s\n-----------------\n", packet.payload);
+
+			pbuffer.erase(pbuffer.begin());
+			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
+		}
+	}
 }
 
 int packet_count = 0;
@@ -127,5 +157,5 @@ void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_ch
 
 	currentpacket.directionstring = src + dest;
 
-	traceprintpacket();
+	pbuffer.push_back(currentpacket);
 }
