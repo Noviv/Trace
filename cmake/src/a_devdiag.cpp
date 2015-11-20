@@ -71,14 +71,14 @@ void a_devdiag() {
 
 	std::thread concurrent(cprocess);
 
-	printf("Started PCAP processing...\n");
+	printf("Started PCAP processing...\n\n");
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
 std::vector<tracepacket> pbuffer;
 
 void cprocess() {
-	printf("Started concurrent processing - interval: %d\n", TRACE_PRINT_DELAY);
+	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
 	while (true) {
 		if (!pbuffer.empty()) {
 			tracepacket packet = pbuffer.front();
@@ -91,7 +91,7 @@ void cprocess() {
 			printf("\tPayload length: %f\n", packet.size_payload);
 			printf("\tTotal length: %f\n", packet.t_len);
 
-			printf("\tPayload:\n-----------------\n%s\n-----------------\n", packet.payload);
+			printf("\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
 
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
