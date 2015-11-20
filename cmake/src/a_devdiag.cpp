@@ -72,6 +72,7 @@ void a_devdiag() {
 	std::thread concurrent(cprocess);
 
 	printf("Started PCAP processing...\n\n");
+	currentpacket.count = 0;
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
@@ -79,7 +80,7 @@ std::vector<tracepacket> pbuffer;
 
 void cprocess() {
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
-	bool activity_flag = true;
+	bool activity_flag = false;
 	while (true) {
 		if (!pbuffer.empty()) {
 			activity_flag = true;
@@ -107,11 +108,7 @@ void cprocess() {
 	}
 }
 
-int packet_count = 0;
-
 void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_char* pkt_data) {
-	packet_count++;
-
 	struct tm ltime;
 	char timestr[16];
 	ip_header* ip;
@@ -128,8 +125,8 @@ void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_ch
 	local_tv_sec = header->ts.tv_sec;
 	localtime_s(&ltime, &local_tv_sec);
 	strftime(timestr, sizeof(timestr), "%H:%M:%S", &ltime);
-	char* timestr_f = (char*)malloc(sizeof(char) * 60);
-	snprintf(timestr_f, 60, "%s,%.6d", timestr, header->ts.tv_usec);
+	char* timestr_f = (char*)malloc(sizeof(char) * 16);
+	snprintf(timestr_f, 16, "%s,%.6d", timestr, header->ts.tv_usec);
 
 	ip = (ip_header*)(pkt_data + ETH_SIZE);
 	ip_len = IP_HL(ip) * 4;
@@ -146,7 +143,7 @@ void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_ch
 	//define current
 	currentpacket.payload = payload;
 	currentpacket.size_payload = ntohs(ip->tlen) - (ip_len + tcp_len);
-	currentpacket.count = packet_count;
+	currentpacket.count = currentpacket.count + 1;
 	currentpacket.timestr = timestr_f;
 	currentpacket.d_len = header->len;
 	currentpacket.t_len = ip->tlen;
