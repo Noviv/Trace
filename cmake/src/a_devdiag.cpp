@@ -81,18 +81,19 @@ void cprocess() {
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
 	while (true) {
 		if (!pbuffer.empty()) {
+			
 			tracepacket packet = pbuffer.front();
 			printf("Packet %i:\n", packet.count);
 
 			printf("\t%s\n", packet.directionstring);
 
-			printf("\tTimestamp: %s,%.6d\n", packet.timestr, packet.tv_usec);
+			printf("\tTimestamp: %s\n", packet.timestr);
 			printf("\tDatagram length: %f\n", packet.d_len);
 			printf("\tPayload length: %f\n", packet.size_payload);
 			printf("\tTotal length: %f\n", packet.t_len);
 
 			printf("\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
-
+			
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
 		}
@@ -120,6 +121,8 @@ void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_ch
 	local_tv_sec = header->ts.tv_sec;
 	localtime_s(&ltime, &local_tv_sec);
 	strftime(timestr, sizeof(timestr), "%H:%M:%S", &ltime);
+	char* timestr_f = (char*)malloc(sizeof(char) * 60);
+	snprintf(timestr_f, 60, "%s,%.6d", timestr, header->ts.tv_usec);
 
 	ip = (ip_header*)(pkt_data + ETH_SIZE);
 	ip_len = IP_HL(ip) * 4;
@@ -137,8 +140,7 @@ void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_ch
 	currentpacket.payload = payload;
 	currentpacket.size_payload = ntohs(ip->tlen) - (ip_len + tcp_len);
 	currentpacket.count = packet_count;
-	currentpacket.timestr = timestr;
-	currentpacket.tv_usec = header->ts.tv_usec;
+	currentpacket.timestr = timestr_f;
 	currentpacket.d_len = header->len;
 	currentpacket.t_len = ip->tlen;
 
