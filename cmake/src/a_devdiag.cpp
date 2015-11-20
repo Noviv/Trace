@@ -79,9 +79,10 @@ std::vector<tracepacket> pbuffer;
 
 void cprocess() {
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
+	bool activity_flag = true;
 	while (true) {
 		if (!pbuffer.empty()) {
-			
+			activity_flag = true;
 			tracepacket packet = pbuffer.front();
 			printf("Packet %i:\n", packet.count);
 
@@ -96,6 +97,12 @@ void cprocess() {
 			
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
+		}
+		else {
+			if (activity_flag) {
+				activity_flag = false;
+				printf("No more packets! Device probably lost connection.\n");
+			}
 		}
 	}
 }
