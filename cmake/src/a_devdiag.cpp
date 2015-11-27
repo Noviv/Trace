@@ -79,30 +79,29 @@ void a_devdiag() {
 std::vector<tracepacket> pbuffer;
 
 void cprocess() {
+	char fullscreen[2000];
+	char* templine = (char*)malloc(sizeof(char) * 80);//80 characters per line
+
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
-	bool activity_flag = false;
+	bool activity_flag = false;	
 	while (true) {
 		if (!pbuffer.empty()) {
 			activity_flag = true;
 			tracepacket packet = pbuffer.front();
 			printf("Packet %i:\n", packet.count);
-
 			printf("\t%s\n", packet.directionstring);
-
 			printf("\tTimestamp: %s\n", packet.timestr);
 			printf("\tDatagram length: %f\n", packet.d_len);
 			printf("\tPayload length: %f\n", packet.size_payload);
 			printf("\tTotal length: %f\n", packet.t_len);
-
 			printf("\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
-			
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
 		}
 		else {
 			if (activity_flag) {
 				activity_flag = false;
-				printf("No more packets! Device probably lost connection.\n");
+				printf("No more packets! PCAP probably dropped some packets or the device lost connection.\n");
 			}
 		}
 	}
