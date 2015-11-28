@@ -28,7 +28,8 @@ Name | Description | Workaround | Status
 --- | --- | --- | ---
 Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>.../build</code>, press Configure, then Generate | Unsolved
 Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
-Binary Data | Binary data is printed out as part of the payload | Future version will fix this | In progress
+Binary Data | Binary data is printed out as part of the payload | Future version | In progress
+Beep | Cmd creates a beep when binary data is printed | Future version | [In progress](https://stackoverflow.com/questions/7597516/how-can-i-stop-my-windows-console-application-triggers-beeps-when-displaying-bin)
 
 ## To do
 [&nbsp;&nbsp;] Clean up CMake file<br>
