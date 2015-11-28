@@ -78,8 +78,10 @@ void a_devdiag() {
 
 std::vector<tracepacket> pbuffer;
 
+//#define FULLSCREEN
+
 void cprocess() {
-	char fullscreen[2000];
+	char fullscreen[2000] = {'\0'};
 	char* templine = (char*)malloc(sizeof(char) * 80);//80 characters per line
 
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
@@ -88,6 +90,15 @@ void cprocess() {
 		if (!pbuffer.empty()) {
 			activity_flag = true;
 			tracepacket packet = pbuffer.front();
+#ifdef FULLSCREEN
+			snprintf(fullscreen, 80, "Packet %i:\n", packet.count);
+			snprintf(fullscreen, 80, "\t%s\n", packet.directionstring);
+			snprintf(fullscreen, 80, "\tTimestamp: %s\n", packet.timestr);
+			snprintf(fullscreen, 80, "\tDatagram length: %f\n", packet.d_len);
+			snprintf(fullscreen, 80, "\tPayload length: %f\n", packet.size_payload);
+			snprintf(fullscreen, 80, "\tTotal length: %f\n", packet.t_len);
+			snprintf(fullscreen, 80, "\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
+#else
 			printf("Packet %i:\n", packet.count);
 			printf("\t%s\n", packet.directionstring);
 			printf("\tTimestamp: %s\n", packet.timestr);
@@ -95,6 +106,7 @@ void cprocess() {
 			printf("\tPayload length: %f\n", packet.size_payload);
 			printf("\tTotal length: %f\n", packet.t_len);
 			printf("\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
+#endif
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
 		}
