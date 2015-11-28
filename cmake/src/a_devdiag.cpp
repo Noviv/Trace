@@ -127,6 +127,7 @@ void cprocess() {
 				_fullscreen,
 				std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
 			printf("%s", fullscreen);
+			fflush(stdout);
 #else
 			printf("Packet %i:\n", packet.count);
 			printf("\t%s\n", packet.directionstring);
@@ -148,6 +149,7 @@ void cprocess() {
 					_fullscreen,
 					std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
 				printf("%s", fullscreen);
+				fflush(stdout);
 #else
 				printf("No more packets! PCAP probably dropped some packets or the device lost connection.\n");
 #endif
