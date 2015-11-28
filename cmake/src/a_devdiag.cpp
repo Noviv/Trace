@@ -76,13 +76,30 @@ void a_devdiag() {
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
+#pragma warning(disable:4018)
+int countreqadd(char* p) {
+	int numbefore = 0;
+	int req = 0;
+	for (int i = 0; i < strlen(p); i++) {
+		if (p[i] == '\n') {
+			req += 80 - numbefore;
+			numbefore = 0;
+		}
+		else {
+			numbefore++;
+		}
+	}
+	return req;
+}
+#pragma warning(default:4018)
+
 std::vector<tracepacket> pbuffer;
 
-//#define FULLSCREEN
+#define FULLSCREEN
 
 void cprocess() {
-	char fullscreen[2000] = {'\0'};
-	char* templine = (char*)malloc(sizeof(char) * 80);//80 characters per line
+	char fullscreen[2000];
+	char* _fullscreen = (char*)malloc(sizeof(char) * 2000);
 
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
 	bool activity_flag = false;	
@@ -91,13 +108,25 @@ void cprocess() {
 			activity_flag = true;
 			tracepacket packet = pbuffer.front();
 #ifdef FULLSCREEN
-			snprintf(fullscreen, 80, "Packet %i:\n", packet.count);
-			snprintf(fullscreen, 80, "\t%s\n", packet.directionstring);
-			snprintf(fullscreen, 80, "\tTimestamp: %s\n", packet.timestr);
-			snprintf(fullscreen, 80, "\tDatagram length: %f\n", packet.d_len);
-			snprintf(fullscreen, 80, "\tPayload length: %f\n", packet.size_payload);
-			snprintf(fullscreen, 80, "\tTotal length: %f\n", packet.t_len);
-			snprintf(fullscreen, 80, "\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
+			snprintf(_fullscreen, 2000,
+				"Packet %i:\n"
+				"\t%s\n"
+				"\tTimestamp: %s\n"
+				"\tDatagram length: %f\n"
+				"\tPayload length: %f\n"
+				"\tTotal length: %f\n"
+				"\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n",
+				packet.count,
+				packet.directionstring,
+				packet.timestr,
+				packet.d_len,
+				packet.size_payload,
+				packet.t_len,
+				packet.payload);
+			snprintf(fullscreen, 2000, "%s%s",
+				_fullscreen,
+				std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
+			printf("%s", fullscreen);
 #else
 			printf("Packet %i:\n", packet.count);
 			printf("\t%s\n", packet.directionstring);
@@ -113,7 +142,15 @@ void cprocess() {
 		else {
 			if (activity_flag) {
 				activity_flag = false;
+#ifdef FULLSCREEN
+				snprintf(_fullscreen, 2000, "No more packets! PCAP probably dropped some packets or the device lost connection.\n");
+				snprintf(fullscreen, 2000, "%s%s",
+					_fullscreen,
+					std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
+				printf("%s", fullscreen);
+#else
 				printf("No more packets! PCAP probably dropped some packets or the device lost connection.\n");
+#endif
 			}
 		}
 	}
