@@ -76,11 +76,10 @@ void a_devdiag() {
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
-#pragma warning(disable:4018)
 int countreqadd(char* p) {
 	int numbefore = 0;
 	int req = 0;
-	for (int i = 0; i < strlen(p); i++) {
+	for (int i = 0; i < static_cast<int>(strlen(p)); i++) {
 		if (p[i] == '\n') {
 			req += 80 - numbefore;
 			numbefore = 0;
@@ -91,7 +90,6 @@ int countreqadd(char* p) {
 	}
 	return req;
 }
-#pragma warning(default:4018)
 
 std::vector<tracepacket> pbuffer;
 
