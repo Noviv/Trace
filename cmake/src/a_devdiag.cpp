@@ -113,7 +113,7 @@ void cprocess() {
 				"\tDatagram length: %f\n"
 				"\tPayload length: %f\n"
 				"\tTotal length: %f\n"
-				"\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n",
+				"\tPayload:\n\t-----------------\n\t%s\n\t-----------------",
 				packet.count,
 				packet.directionstring,
 				packet.timestr,
@@ -125,7 +125,6 @@ void cprocess() {
 				_fullscreen,
 				std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
 			printf("%s", fullscreen);
-			fflush(stdout);
 #else
 			printf("Packet %i:\n", packet.count);
 			printf("\t%s\n", packet.directionstring);
@@ -142,12 +141,11 @@ void cprocess() {
 			if (activity_flag) {
 				activity_flag = false;
 #ifdef FULLSCREEN
-				snprintf(_fullscreen, 2000, "No more packets! PCAP probably dropped some packets or the device lost connection.\n");
+				snprintf(_fullscreen, 2000, "No more packets! PCAP probably dropped some packets or the device lost connection.");
 				snprintf(fullscreen, 2000, "%s%s",
 					_fullscreen,
 					std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
 				printf("%s", fullscreen);
-				fflush(stdout);
 #else
 				printf("No more packets! PCAP probably dropped some packets or the device lost connection.\n");
 #endif
