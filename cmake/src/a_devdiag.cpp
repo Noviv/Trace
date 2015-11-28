@@ -79,7 +79,7 @@ void a_devdiag() {
 int countreqadd(char* p) {
 	int numbefore = 0;
 	int req = 0;
-	for (int i = 0; i < static_cast<int>(strlen(p)); i++) {
+	for (int i = 0; i < (int)strlen(p); i++) {
 		if (p[i] == '\n') {
 			req += 80 - numbefore;
 			numbefore = 0;
