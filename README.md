@@ -19,14 +19,13 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
   <li>Right-click the Trace project in the Solution Explorer and set it as the startup project</li>
   <li>Right-click the Trace project in the Solution Explorer and open properties</li>
-  <li>Move to <code>Linker --> Input</code> and add <code>wpcap.lib</code>, <code>ws2_32.lib</code>, and <code>Packet.lib</code></li>
   <li>Build solution/project (Ctrl+Shift+B or right click and press build)</li>
 </ol>
 
 ## Known Bugs
 Name | Description | Workaround | Status
 --- | --- | --- | ---
-Escape Character | Error about "\P" escape character shows up in CMake console | Delete files in <code>.../build</code>, press Configure, then Generate | Unsolved
+Escape Character | Error about "\P" escape character shows up in CMake console | Fixed in v1.3.0 | Solved
 Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
 Binary Data | Binary data is printed out as part of the payload | Binary data is left in | Ignored
 Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | [Fixed](https://stackoverflow.com/questions/7597516/how-can-i-stop-my-windows-console-application-triggers-beeps-when-displaying-bin)
