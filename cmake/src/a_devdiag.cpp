@@ -93,9 +93,10 @@ int countreqadd(char* p) {
 
 std::vector<tracepacket> pbuffer;
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 void cprocess() {
+#pragma warning(disable:4101)
 	char fullscreen[2000];
 	char* _fullscreen = (char*)malloc(sizeof(char) * 2000);
 
@@ -147,7 +148,7 @@ void cprocess() {
 					std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
 				printf("%s", fullscreen);
 #else
-				printf("No more packets! PCAP probably dropped some packets or the device lost connection.\n");
+				printf("No more packets! PCAP probably dropped some packets or device lost connection.\n");
 #endif
 			}
 		}
