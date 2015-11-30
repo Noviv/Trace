@@ -18,9 +18,8 @@ if "%a%"=="1" (
 	echo Would you like to install WinPCAP version 4.1.3 automatically? [y/n]
 	set /p choice="?:"
 	if "%choice%"=="y" (
-		echo install
 		bitsadmin /transfer WinPCAPInstall /download /priority normal https://www.winpcap.org/install/bin/WinPcap_4_1_3.exe %TEMP%\\winpcap.exe
-		%TEMP%/winpcaptempinstall.exe
+		%TEMP%/winpcap.exe
 		checkinstall.bat
 		del %TEMP%\\winpcap.exe
 	)
