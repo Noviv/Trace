@@ -93,63 +93,34 @@ int countreqadd(char* p) {
 
 std::vector<tracepacket> pbuffer;
 
-//#define FULLSCREEN
-
 void cprocess() {
-#pragma warning(disable:4101)
-	char fullscreen[2000];
-	char* _fullscreen = (char*)malloc(sizeof(char) * 2000);
-
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
-	bool activity_flag = false;	
+	bool activity_flag = false;
 	while (true) {
 		if (!pbuffer.empty()) {
 			activity_flag = true;
+			system("cls");
+
 			tracepacket packet = pbuffer.front();
-#ifdef FULLSCREEN
-			snprintf(_fullscreen, 2000,
-				"Packet %i:\n"
-				"\t%s\n"
-				"\tTimestamp: %s\n"
-				"\tDatagram length: %f\n"
-				"\tPayload length: %f\n"
-				"\tTotal length: %f\n"
-				"\tPayload:\n\t-----------------\n\t%s\n\t-----------------",
-				packet.count,
-				packet.directionstring,
-				packet.timestr,
-				packet.d_len,
-				packet.size_payload,
-				packet.t_len,
-				packet.payload);
-			snprintf(fullscreen, 2000, "%s%s",
-				_fullscreen,
-				std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
-			printf("%s", fullscreen);
-#else
 			printf("Packet %i:\n", packet.count);
 			printf("\t%s\n", packet.directionstring);
 			printf("\tTimestamp: %s\n", packet.timestr);
 			printf("\tDatagram length: %f\n", packet.d_len);
 			printf("\tPayload length: %f\n", packet.size_payload);
 			printf("\tTotal length: %f\n", packet.t_len);
-			printf("\tPayload:\n\t-----------------\n\t%s\n\t-----------------\n", packet.payload);
-#endif
+			printf("\tPayload:\n");
+			printf("\t-----------------\n");
+			printf("\t%s\n", packet.payload);
+			printf("\t-----------------\n");
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
 		}
 		else {
 			if (activity_flag) {
 				activity_flag = false;
-#ifdef FULLSCREEN
-				snprintf(_fullscreen, 2000, "No more packets! PCAP probably dropped some packets or the device lost connection.");
-				snprintf(fullscreen, 2000, "%s%s",
-					_fullscreen,
-					std::string(2000 - (strlen(_fullscreen) + countreqadd(_fullscreen)), ' ').c_str());
-				printf("%s", fullscreen);
-#else
+				system("cls");
+
 				printf("No more packets! PCAP probably dropped some packets or device lost connection.\n");
-#endif
 			}
 		}
 	}
