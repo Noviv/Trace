@@ -1,3 +1,9 @@
+## <a name="v130">Version 1.3.0</a>
+- Fullscreen output
+- No delay or buffer when printing binary data
+- Beep noise bug solved when printing binary data
+- Float sizes are now as accurate as PCAP allows
+
 ## <a name="v120">Version 1.2.0</a>
 - Reformatted output
 - Added data structures for source and destination IP
