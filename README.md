@@ -15,11 +15,10 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
   <li>Set source directory to <code>.../cmake</code> and the build directory to <code>.../build</code> (or whatever you want it to be)</li>
-  <li>Press "Generate" (<code>touch</code> and non-CMake files will not be deleted, but can be)</li>
+  <li>Press "Generate" (<code>touch</code> will not be deleted, but can be because it is not used in this project)</li>
   <li>Select the version of Visual Studio you want Trace to build into </li>
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
   <li>Right-click the Trace project in the Solution Explorer and set it as the startup project</li>
-  <li>Right-click the Trace project in the Solution Explorer and open properties</li>
   <li>Build solution/project (Ctrl+Shift+B or right click and press build)</li>
 </ol>
 
@@ -28,8 +27,7 @@ Name | Description | Workaround | Status
 --- | --- | --- | ---
 Escape Character | Error about "\P" escape character shows up in CMake console | Fixed in v1.3.0 | Fixed
 Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
-Binary Data | Binary data is printed out as part of the payload | Binary data is left in | Ignored
-Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | [Fixed](https://stackoverflow.com/questions/7597516/how-can-i-stop-my-windows-console-application-triggers-beeps-when-displaying-bin)
+Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](https://stackoverflow.com/questions/7597516/how-can-i-stop-my-windows-console-application-triggers-beeps-when-displaying-bin)
 
 ## To do
 [&nbsp;&nbsp;] Clean up CMake file<br>
