@@ -20,7 +20,6 @@ if "%a%"=="1" (
 	if "%choice%"=="y" (
 		bitsadmin /transfer WinPCAPInstall /download /priority normal https://www.winpcap.org/install/bin/WinPcap_4_1_3.exe %TEMP%\\winpcap.exe
 		%TEMP%/winpcap.exe
-		checkinstall.bat
 		del %TEMP%\\winpcap.exe
 	)
 )
