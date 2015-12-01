@@ -76,21 +76,6 @@ void a_devdiag() {
 	pcap_loop(adhandle, INFINITE, a_packethandler, NULL);
 }
 
-int countreqadd(char* p) {
-	int numbefore = 0;
-	int req = 0;
-	for (int i = 0; i < (int)strlen(p); i++) {
-		if (p[i] == '\n') {
-			req += 80 - numbefore;
-			numbefore = 0;
-		}
-		else {
-			numbefore++;
-		}
-	}
-	return req;
-}
-
 std::vector<tracepacket> pbuffer;
 
 void cprocess() {

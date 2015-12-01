@@ -14,7 +14,6 @@
 
 void a_devdiag();
 void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_char* pkt_data);
-int countreqadd(char* p);
 void cprocess();
 
 #endif
