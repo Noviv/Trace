@@ -2,8 +2,7 @@
 cls
 set "a=1"
 if "%PCAP_ROOT_DIR%"==""  (
-	set "a=2"
-	echo PCAP_ROOT_DIR is not defined! WinPCAP needs to be installed.
+	echo PCAP_ROOT_DIR is not defined! Please set this environment variable.
 ) else (
 	if not exist "%PCAP_ROOT_DIR%\\Include\\pcap\\pcap.h" (
 		set "a=2"
