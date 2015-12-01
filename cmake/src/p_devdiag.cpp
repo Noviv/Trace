@@ -24,7 +24,7 @@ void p_devdiag() {
 char* getDeviceStatus(pcap_if_t* d) {
 	pcap_t* _d;
 
-	if ((_d = pcap_open_live(d->name, 100, 1, 1000, NULL)) == NULL) {
+	if ((_d = pcap_open_live(d->name, 100, 1, 500, NULL)) == NULL) {
 		printf("Unable to open device %s.\n", d->name);
 		return "err";
 	}
@@ -33,14 +33,25 @@ char* getDeviceStatus(pcap_if_t* d) {
 	struct pcap_pkthdr* header;
 	int res;
 
+	int inactiveStreak = 0;
+	bool prevInactive = false;
+
 	int timeoutCount = 0;
 	int activeCount = 0;
 	for (int i = 0; i < 9; i++) {
 		res = pcap_next_ex(_d, &header, &pkt_data);
 		if (res == 0) {
+			if (prevInactive) {
+				inactiveStreak++;
+				if (inactiveStreak >= 3) {
+					return "INACTIVE";
+				}
+			}
+			prevInactive = true;
 			timeoutCount++;
 		}
 		else {
+			prevInactive = false;
 			activeCount++;
 		}
 	}

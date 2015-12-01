@@ -10,7 +10,7 @@
 	#include <netinet/in.h>
 #endif
 
-#define TRACE_PRINT_DELAY 500
+#define TRACE_PRINT_DELAY 250
 
 void a_devdiag();
 void a_packethandler(u_char* param, const struct pcap_pkthdr* header, const u_char* pkt_data);

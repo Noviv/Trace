@@ -97,6 +97,7 @@ void cprocess() {
 			printf("\t-----------------\n");
 			printf("\t%s\n", packet.payload);
 			printf("\t-----------------\n");
+			printf("\tPackets Buffered: %i\n", pbuffer.size());
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
 		}
