@@ -78,6 +78,17 @@ void a_devdiag() {
 
 std::vector<tracepacket> pbuffer;
 
+bool strbinary(const u_char* p) {//WORK IN PROGRESS
+	char dump[160] = {'\0'};
+	sprintf_s(dump, 160, "%s", p);
+	for (int i = 0; i < sizeof(dump); i++) {
+		if (dump[i] < 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void cprocess() {
 	printf("Started concurrent processing - interval: %d\n\n", TRACE_PRINT_DELAY);
 	bool activity_flag = false;
@@ -95,7 +106,12 @@ void cprocess() {
 			printf("\tTotal length: %f\n", packet.t_len);
 			printf("\tPayload:\n");
 			printf("\t-----------------\n");
-			printf("\t%s\n", packet.payload);
+			if (strbinary(packet.payload)) {
+				printf("\t%s\n", "(BINARY DATA)");
+			}
+			else {
+				printf("\t%s\n", packet.payload);
+			}
 			printf("\t-----------------\n");
 			printf("\tPackets Buffered: %i\n", pbuffer.size());
 			pbuffer.erase(pbuffer.begin());
