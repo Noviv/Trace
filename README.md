@@ -14,7 +14,7 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
 <ol>
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
-  <li>Set source directory to <code>.../cmake</code> and the build directory to <code>.../build</code> (or whatever you want it to be)</li>
+  <li>Set source directory to <code>.../src</code> and the build directory to <code>.../build</code> (or whatever you want it to be)</li>
   <li>Press "Generate" (<code>touch</code> will not be deleted, but can be because it is not used in this project)</li>
   <li>Select the version of Visual Studio you want Trace to build into </li>
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
