@@ -1,0 +1,3 @@
+Thank you for installing Trace!
+
+In order to uninstall Trace, simply delete the folder Trace was installed to. In order to uninstall WinPCAP drivers, uninstall WinPCAP from the Programs and Features menu on the Control Panel.
