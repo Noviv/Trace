@@ -14,7 +14,7 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
 <ol>
   <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
   <li>Open CMake GUI</li>
-  <li>Set source directory to <code>.../src</code> and the build directory to <code>.../build</code> (or whatever you want it to be)</li>
+  <li>Set source directory to <code>.../src</code> and the build directory to <code>.../build</code></li>
   <li>Press "Generate" (<code>touch</code> will not be deleted, but can be because it is not used in this project)</li>
   <li>Select the version of Visual Studio you want Trace to build into </li>
   <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
@@ -25,7 +25,6 @@ You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/
 ## Known Bugs
 Name | Description | Workaround | Status
 --- | --- | --- | ---
-Escape Character | Error about "\P" escape character shows up in CMake console | Fixed in v1.3.0 | Fixed
 Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
 Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](http://stackoverflow.com/a/7977903)
 
