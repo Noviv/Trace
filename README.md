@@ -27,7 +27,7 @@ Name | Description | Workaround | Status
 --- | --- | --- | ---
 Escape Character | Error about "\P" escape character shows up in CMake console | Fixed in v1.3.0 | Fixed
 Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
-Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](https://stackoverflow.com/questions/7597516/how-can-i-stop-my-windows-console-application-triggers-beeps-when-displaying-bin)
+Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](http://stackoverflow.com/a/7977903)
 
 ## To do
 [&nbsp;&nbsp;] Clean up CMake file<br>
