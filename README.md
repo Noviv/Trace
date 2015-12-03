@@ -29,6 +29,4 @@ Device Timeout | A device that is actually active may have the inactive label in
 Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](http://stackoverflow.com/a/7977903)
 
 ## To do
-[&nbsp;&nbsp;] Clean up CMake file<br>
-[&nbsp;&nbsp;] Find a better way to check whether or not a device is active<br>
-[&nbsp;&nbsp;] Edit CONTRIBUTING and CHANGELOG<br>
+- Clean up CMake file<br>
