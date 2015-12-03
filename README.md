@@ -9,24 +9,7 @@ v1.2.0 | Much prettier output and more detailed information | [Download](https:/
 v1.1.0 | Prettier output | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe) | [Changelog](https://github.com/Noviv/Trace/blob/master/CHANGELOG.md#v110)
 v1.0.0 | Very simplistic inital version of Trace | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe) | [Changelog](https://github.com/Noviv/Trace/blob/master/CHANGELOG.md#v100)
 
-## Windows Development
-You must have [CMake](https://cmake.org/) and [WinPcap](https://www.winpcap.org/) installed. This project was developed using WinPcap in Visual Studio 2015.
-<ol>
-  <li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap</li>
-  <li>Open CMake GUI</li>
-  <li>Set source directory to <code>.../src</code> and the build directory to <code>.../build</code></li>
-  <li>Press "Generate" (<code>touch</code> will not be deleted, but can be because it is not used in this project)</li>
-  <li>Select the version of Visual Studio you want Trace to build into </li>
-  <li>Move to <code>build/</code> and open the Visual Studio Solution file</li>
-  <li>Right-click the Trace project in the Solution Explorer and set it as the startup project</li>
-  <li>Build solution/project (Ctrl+Shift+B or right click and press build)</li>
-</ol>
-
 ## Known Bugs
 Name | Description | Workaround | Status
 --- | --- | --- | ---
-Device Timeout | A device that is actually active may have the inactive label in the console | None (happens randomly) | N/A
 Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](http://stackoverflow.com/a/7977903)
-
-## To do
-- Clean up CMake file<br>

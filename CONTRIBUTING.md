@@ -13,10 +13,17 @@ Software | Tested Version | Required
 
 
 <ol>
-<li>Listed above is the tested dev environment for Trace. Install the required software.</li>
-<li>Follow the steps under <b>Windows Development</b> in the main README.</li>
-<li>(optional) Open <code>Trace_package.iss</code> and build the script in order to create the installer package.</li>
-<li>After building from Visual Studio, run Trace.exe. If there are no problems, the build environment has been set up successfully.</li>
+	<li>Listed above is the tested dev environment for Trace. Install the required software.</li>
+	<li>Make a new environment variable <code>PCAP_ROOT_DIR</code> and set it to the folder that contains Pcap.</li>
+	<li>Open CMake GUI.</li>
+	<li>Set source directory to <code>.../src</code> and the build directory to <code>.../build</code>.</li>
+	<li>Press "Generate" (<code>touch</code> will not be deleted, but can be because it is not used in this project).</li>
+	<li>Select the version of Visual Studio you want Trace to build into.</li>
+	<li>Move to <code>build/</code> and open the Visual Studio Solution file.</li>
+	<li>Right-click the Trace project in the Solution Explorer and set it as the startup project.</li>
+	<li>Build solution/project (Ctrl+Shift+B or right click and press build).</li>
+	<li>(optional) Open <code>Trace_package.iss</code> and build the script in order to create the installer package.</li>
+	<li>After building from Visual Studio, run Trace.exe. If there are no problems, the build environment has been set up successfully.</li>
 </ol>
 
 ### Project Structure
