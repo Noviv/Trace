@@ -34,6 +34,7 @@ All folders beginning with <code>_</code> are used in the creation of the instal
 - <code>_scripts/</code> - script files that are or will be used in Trace setup/installation
 	- <code>Trace_package.iss</code> - Inno Setup script for installation package
     - <code>winpcap.bat</code> - automatically detect and if necessary install WinPCAP drivers/DLLs
+	- <code>winpcapdev.bat</code> - automatically detect and if necessary download WinPCAP headers/libraries
 - <code>build</code> - the directory in which CMake can build the Visual Studio files necessary to build Trace
 - <code>src</code> - source files for Trace
 	- <code>include/</code> - Trace header files
