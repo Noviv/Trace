@@ -39,7 +39,7 @@ struct tracepacket {
 	
 	//contents
 	double size_payload;
-	const u_char* payload;
+	const unsigned char* payload;
 } currentpacket;
 
 #endif
