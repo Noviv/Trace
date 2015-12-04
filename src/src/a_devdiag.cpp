@@ -78,13 +78,17 @@ void a_devdiag() {
 
 std::vector<tracepacket> pbuffer;
 
-bool strbinary(const char* p) {//WORK IN PROGRESS
+const char* strconvert(const char* p) {
+	bool binary = false;
+	if ((int)strlen(p) == 0) {
+		return "(EMPTY STRING)";
+	}
 	for (int i = 0; i < (int) strlen(p); i++) {
-		if (p[i] < 0) {
-			return true;
+		if (p[i] < 0 || p[i] == 7) {
+			return "(BINARY DATA)";
 		}
 	}
-	return false;
+	return p;
 }
 
 void cprocess() {
@@ -104,12 +108,7 @@ void cprocess() {
 			printf("\tTotal length: %f\n", packet.t_len);
 			printf("\tPayload:\n");
 			printf("\t-----------------\n");
-			if (strbinary((const char*)packet.payload)) {
-				printf("\t%s\n", "(BINARY DATA)");
-			}
-			else {
-				printf("\t%s\n", packet.payload);
-			}
+			printf("\t%s\n", strconvert((const char*)packet.payload));
 			printf("\t-----------------\n");
 			printf("\tPackets Buffered: %i\n", pbuffer.size());
 			pbuffer.erase(pbuffer.begin());
