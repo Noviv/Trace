@@ -1,0 +1,1 @@
+WinPCAP will automatically install/detect installation. If you already have WinPCAP on your system, then just press Cancel after Trace installs.

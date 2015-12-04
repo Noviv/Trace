@@ -17,17 +17,18 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 LicenseFile=..\\_package\\license.txt
+InfoBeforeFile=..\_package\\preinstall.txt
 InfoAfterFile=..\\_package\\postinstall.txt
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
 
 [Code]
-procedure InstallWinPCAP;
+procedure InstallWinPCAP();
 var
   ResultCode: Integer;
 begin
-  Exec(ExpandConstant('{app}\WinPcap_4_1_3.exe'), '', '', SW_SHOWNORMAL,
+  Exec(ExpandConstant('{app}\\WinPcap_4_1_3.exe'), '', '', SW_SHOWNORMAL,
     ewWaitUntilTerminated, ResultCode)
 end;
 
@@ -38,7 +39,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\_package\WinPcap_4_1_3.exe"; DestDir: "{app}"; BeforeInstall: InstallWinPCAP
+Source: "..\_package\WinPcap_4_1_3.exe"; DestDir: "{app}"; AfterInstall: InstallWinPCAP
 Source: "..\build\Debug\Trace.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
