@@ -12,4 +12,4 @@ v1.0.0 | Very simplistic inital version of Trace | [Download](https://github.com
 ## Known Bugs
 Name | Description | Workaround | Status
 --- | --- | --- | ---
-Beep | Cmd creates a beep when binary data is printed | Type <code>net stop beep</code> into admin command prompt (<code>net start beep</code> to bring it back) | ["Fixed"](http://stackoverflow.com/a/7977903)
+Beep | Cmd creates a beep when binary data is printed | Fixed in upcoming version | Complete
