@@ -16,11 +16,20 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=..\_package\licence.txt
-InfoAfterFile=..\_package\postinstall.txt
+LicenseFile=..\\_package\\license.txt
+InfoAfterFile=..\\_package\\postinstall.txt
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
+
+[Code]
+procedure InstallWinPCAP;
+var
+  ResultCode: Integer;
+begin
+  Exec(ExpandConstant('{app}\WinPcap_4_1_3.exe'), '', '', SW_SHOWNORMAL,
+    ewWaitUntilTerminated, ResultCode)
+end;
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -29,6 +38,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
+Source: "..\_package\WinPcap_4_1_3.exe"; DestDir: "{app}"; BeforeInstall: InstallWinPCAP
 Source: "..\build\Debug\Trace.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
