@@ -19,7 +19,7 @@ AllowNoIcons=yes
 LicenseFile=..\\_package\\license.txt
 InfoBeforeFile=..\_package\\preinstall.txt
 InfoAfterFile=..\\_package\\postinstall.txt
-OutputBaseFilename=setup
+OutputBaseFilename={#MyAppName + " v" + MyAppVersion + " Installer"}
 Compression=lzma
 SolidCompression=yes
 
