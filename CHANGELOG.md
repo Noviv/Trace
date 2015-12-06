@@ -1,3 +1,10 @@
+## <a name="v140">Version 1.4.0</a>
+- Created an installer package for Trace
+- Output is user friendly
+- Passive diagnostics are much faster and are more accurate in choosing an active device
+- Packet are now buffered so that PCAP does not drop as many
+- Binary data is no longer printed
+
 ## <a name="v130">Version 1.3.0</a>
 - Fullscreen output
 - No delay or buffer when printing binary data

@@ -1,5 +1,5 @@
 #define MyAppName "Trace"
-#define MyAppVersion "1.3.0"
+#define MyAppVersion "1.4.0"
 #define MyAppPublisher "Matthew Webb"
 #define MyAppURL "github.com/Noviv/Trace"
 #define MyAppExeName "Trace.exe"
