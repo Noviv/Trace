@@ -1,5 +1,5 @@
 # Trace [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Forkability](https://img.shields.io/badge/forkability-high-green.svg)](https://basicallydan.github.io/forkability/?u=Noviv&r=Trace)
-A Windows tool that allows users to diagnose their network devices and trace single packets. Latest Version: [v1.3.0](https://github.com/Noviv/Trace/releases/download/v1.3.0/Trace.exe)
+Trace is a Windows network tool that allows the user to see all the packets going across a network device. A future version will give the ability to follow a packet that the user selects or creates. Latest Version: [v1.3.0](https://github.com/Noviv/Trace/releases/download/v1.3.0/Trace.exe)
 
 ## Download
 Version | Quick Description | Download | Changelog
