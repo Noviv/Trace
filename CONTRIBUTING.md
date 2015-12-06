@@ -41,7 +41,7 @@ All folders beginning with <code>_</code> are used in the creation of the instal
 		- <code>a_devdiag.h</code> - active diagnostics header
 		- <code>netstructures.h</code> - input network data structures
 		- <code>a_devdiag.h</code> - passive diagnostics header
-		- <code>a_devdiag.h</code> - Trace data packet data structures
+		- <code>tracepacket.h</code> - Trace data packet data structures
 	- <code>src/</code> - Trace source files
     	- <code>a_devdiag.cpp</code> - active diagnostics source code
     	- <code>main.cpp</code> - Trace entry point
