@@ -1,5 +1,6 @@
 #include <thread>
 #include <vector>
+#include <stdio.h>
 
 #include "a_devdiag.h"
 #include "netstructures.h"
@@ -79,10 +80,6 @@ void a_devdiag() {
 std::vector<tracepacket> pbuffer;
 
 const char* strconvert(const char* p) {
-	bool binary = false;
-	if ((int)strlen(p) == 0) {
-		return "(EMPTY STRING)";
-	}
 	for (int i = 0; i < (int) strlen(p); i++) {
 		if (p[i] < 0 || p[i] == 7) {
 			return "(BINARY DATA)";
@@ -110,16 +107,15 @@ void cprocess() {
 			printf("\t-----------------\n");
 			printf("\t%s\n", strconvert((const char*)packet.payload));
 			printf("\t-----------------\n");
-			printf("\tPackets Buffered: %i\n", pbuffer.size());
+			printf("\tPackets Buffered: %i\n", pbuffer.size() - 1);
 			pbuffer.erase(pbuffer.begin());
 			std::this_thread::sleep_for(std::chrono::milliseconds(TRACE_PRINT_DELAY));
 		}
 		else {
 			if (activity_flag) {
 				activity_flag = false;
-				system("cls");
 
-				printf("No more packets! PCAP probably dropped some packets or device lost connection.\n");
+				printf("\nNo more packets! PCAP probably dropped some packets or device lost connection.\n");
 			}
 		}
 	}
