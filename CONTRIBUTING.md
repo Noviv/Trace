@@ -48,4 +48,9 @@ All folders beginning with <code>_</code> are used in the creation of the instal
     	- <code>p_devdiag.cpp</code> - passive diagnostics source code
 	- <code>CMakeLists.txt</code> - the CMake script for creating the build environment
 
-<br><br>If you encounter any problems feel free to <a href="mailto:mwebbmwebb@gmail.com">email me</a>!
+<br><br>If you encounter any problems feel free to <a href="mailto:mwebbmwebb@gmail.com">email me</a>!<br>
+
+## To do
+- Add packet tracing capability
+- Add wxWidgets to replace the console with a GUI
+- Documentation
