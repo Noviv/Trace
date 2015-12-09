@@ -19,9 +19,11 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 	file(GLOB_RECURSE Trace_SOURCES "src/*.cpp")
 	file(GLOB_RECURSE Trace_HEADERS "include/*.h")
+	file(GLOB_RECURSE Trace_RES_H "res/*.h")
+	file(GLOB_RECURSE Trace_RES_RC "res/*.rc")
 
 	link_directories(${PCAP_LIBRARY})
-	add_executable(Trace ${Trace_SOURCES} ${Trace_HEADERS})
+	add_executable(Trace ${Trace_SOURCES} ${Trace_HEADERS} ${Trace_RES_H} ${Trace_RES_RC})
 	include_directories(${PCAP_INCLUDE_DIR})
 	include_directories("include/")
 	target_link_libraries(Trace Packet.lib wpcap.lib ws2_32.lib)
