@@ -36,6 +36,7 @@ All folders beginning with <code>_</code> are used in the creation of the instal
     - <code>winpcap.bat</code> - automatically detect and if necessary install WinPCAP drivers/DLLs
 	- <code>winpcapdev.bat</code> - automatically detect and if necessary download WinPCAP headers/libraries
 - <code>build</code> - the directory in which CMake can build the Visual Studio files necessary to build Trace
+- <code>res</code> - resources for Trace
 - <code>src</code> - source files for Trace
 	- <code>include/</code> - Trace header files
 		- <code>a_devdiag.h</code> - active diagnostics header
