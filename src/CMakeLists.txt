@@ -23,6 +23,17 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 		" WXWIDGETS_ROOT_DIR referencing that directory.")
 	endif()
 	
+	macro(SUBDIRLIST result curdir)
+		file(GLOB children RELATIVE ${curdir} ${curdir}/*)
+		set(dirlist "")
+		foreach(child ${children})
+			if (IS_DIRECTORY ${curdir}/${child})
+				list(APPEND dirlist ${child})
+			endif()
+		endforeach()
+		set(${result} ${dirlist})
+	endmacro()
+	
 	mark_as_advanced(
 		wxWidgets_CONFIGURATION
 		wxWidgets_LIB_DIR
@@ -32,27 +43,39 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 	#sources
 	file(GLOB_RECURSE Trace_SOURCES "src/*.cpp")
-	source_group("Source Files" FILES ${Trace_SOURCES})
+	source_group("Sources" FILES ${Trace_SOURCES})
 	
 	#headers
-	file(GLOB_RECURSE Trace_HEADERS "include/*.h")
-	source_group("Header Files" FILES ${Trace_HEADERS})
+	file(GLOB Trace_HEADERS "include/*.h")
+	source_group("Headers" FILES ${Trace_HEADERS})
+	
+	get_filename_component(abshLIST "include/" ABSOLUTE)
+	message("${abshLIST}")
+	SUBDIRLIST(hLIST ${abshLIST})
+	foreach(subdir ${hLIST})
+		file(GLOB Trace_INNER_HEADERS "${subdir}/*.h")
+		source_group("Headers\\gui" FILES Trace_INNER_HEADERS)
+		message("Headers\\${subdir}")
+	endforeach()
 	
 	#resources
 	file(GLOB_RECURSE Trace_RES_H "res/*.h")
 	file(GLOB_RECURSE Trace_RES_RC "res/*.rc")
-	source_group("Resource Files" FILES ${Trace_RES_H} ${Trace_RES_RC})
+	source_group("Resources" FILES ${Trace_RES_H} ${Trace_RES_RC})
 	
 	#wxWidgets
 	find_package(wxWidgets COMPONENTS core base REQUIRED)
 	include(${wxWidgets_USE_FILE})
-
+	
 	#finish visual studio
 	link_directories(${PCAP_LIBRARY})
 	add_executable(Trace ${Trace_SOURCES} ${Trace_HEADERS} ${Trace_RES_H} ${Trace_RES_RC})
 	include_directories(${PCAP_INCLUDE_DIR})
 	include_directories("include/")
 	target_link_libraries(Trace Packet.lib wpcap.lib ws2_32.lib ${wxWidgets_LIBRARIES})
+	
+	#definitions
+	set_target_properties(Trace PROPERTIES LINK_FLAGS "/ENTRY:WinMainCRTStartup")
 else()
 	message(FATAL_ERROR "Trace only supports Windows development!")
 endif()
