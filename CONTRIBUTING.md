@@ -48,6 +48,9 @@ All folders beginning with <code>_</code> are used in the creation of the instal
     	- <code>main.cpp</code> - Trace entry point
     	- <code>p_devdiag.cpp</code> - passive diagnostics source code
 	- <code>CMakeLists.txt</code> - the CMake script for creating the build environment
+## Branches
+- <code>master</code> - the most recent changes
+- <code>gui</code> - temporary branch to test implementation of wxWidgets
 
 ## To do
 - Add packet tracing capability
