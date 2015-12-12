@@ -10,6 +10,6 @@ v1.2.0 | Much prettier output and more detailed information | [Download](https:/
 v1.1.0 | Prettier output | [Download](https://github.com/Noviv/Trace/releases/download/v1.1.0/Trace.exe) | [Changelog](https://github.com/Noviv/Trace/blob/master/CHANGELOG.md#version-110)
 v1.0.0 | Very simplistic inital version of Trace | [Download](https://github.com/Noviv/Trace/releases/download/v1.0.0/Trace.exe) | [Changelog](https://github.com/Noviv/Trace/blob/master/CHANGELOG.md#version-100)
 
-## Known Bugs
+## Known Bugs (in latest release)
 Name | Description | Workaround | Status
 --- | --- | --- | ---
