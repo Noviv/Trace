@@ -1,1 +1,0 @@
-#define TESTINCL_H

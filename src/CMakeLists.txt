@@ -46,17 +46,8 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	source_group("Sources" FILES ${Trace_SOURCES})
 	
 	#headers
-	file(GLOB Trace_HEADERS "include/*.h")
+	file(GLOB_RECURSE Trace_HEADERS "include/*.h")
 	source_group("Headers" FILES ${Trace_HEADERS})
-	
-	get_filename_component(abshLIST "include/" ABSOLUTE)
-	message("${abshLIST}")
-	SUBDIRLIST(hLIST ${abshLIST})
-	foreach(subdir ${hLIST})
-		file(GLOB Trace_INNER_HEADERS "${subdir}/*.h")
-		source_group("Headers\\gui" FILES Trace_INNER_HEADERS)
-		message("Headers\\${subdir}")
-	endforeach()
 	
 	#resources
 	file(GLOB_RECURSE Trace_RES_H "res/*.h")
