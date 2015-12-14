@@ -56,9 +56,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	include_directories(${PCAP_INCLUDE_DIR})
 	include_directories("include/")
 	target_link_libraries(Trace Packet.lib wpcap.lib ws2_32.lib ${wxWidgets_LIBRARIES})
-	
-	#definitions
-	set_target_properties(Trace PROPERTIES LINK_FLAGS "/ENTRY:WinMainCRTStartup")
 else()
 	message(FATAL_ERROR "Trace only supports Windows development!")
 endif()
