@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
+if (POLICY CMP0043)
+	cmake_policy(SET CMP0043 OLD)
+endif()
 project(Trace)
 
 #check windows
@@ -22,17 +25,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 		"\nInstall the wxWidgets dev kit and make a new environment variable"
 		" WXWIDGETS_ROOT_DIR referencing that directory.")
 	endif()
-	
-	macro(SUBDIRLIST result curdir)
-		file(GLOB children RELATIVE ${curdir} ${curdir}/*)
-		set(dirlist "")
-		foreach(child ${children})
-			if (IS_DIRECTORY ${curdir}/${child})
-				list(APPEND dirlist ${child})
-			endif()
-		endforeach()
-		set(${result} ${dirlist})
-	endmacro()
 	
 	mark_as_advanced(
 		wxWidgets_CONFIGURATION
